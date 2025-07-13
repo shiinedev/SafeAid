@@ -5,13 +5,16 @@ import App from './App.tsx'
 import { RouterProvider } from 'react-router-dom'
 import router from './routes.tsx'
 import { AuthProvider } from './hooks/useAuth.tsx'
+import { TrainingProvider } from './hooks/useTraining.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
    
     <AuthProvider>
+      <TrainingProvider>
        <RouterProvider router={router} />
     <App />
+    </TrainingProvider>
   </AuthProvider>
   </StrictMode>,
 )

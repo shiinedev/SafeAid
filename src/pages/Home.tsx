@@ -2,6 +2,7 @@
 import { Shield, Users, Heart, BookOpen } from "lucide-react"
 import { Card ,CardDescription, CardHeader, CardTitle} from "../components/ui/card"
 import { Button } from "../components/ui/button"
+import { Link } from "react-router"
 
  const  Home =  () => {
   return (
@@ -55,13 +56,17 @@ import { Button } from "../components/ui/button"
 
         <div className="text-center space-y-6">
           <div className="space-x-4">
+            <Link to="/login">
             <Button size="lg" >
               Access Platform
             </Button>
+            </Link>
+            <Link to="/training">
             <Button size="lg" variant="outline" >
               <BookOpen className="mr-2 h-5 w-5" />
               Training Resources
             </Button>
+            </Link>
           </div>
 
           <div className="text-sm text-gray-500 max-w-2xl mx-auto">
