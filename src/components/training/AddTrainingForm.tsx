@@ -1,32 +1,36 @@
-
-import { useState } from "react"
-import { Role, useAuth } from "../hooks/useAuth"
-import { Categories, Level, useTraining } from "../hooks/useTraining"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card"
-import { Button } from "../components/ui/button"
-import { Input } from "../components/ui/input"
-import { Textarea } from "../components/ui/textarea"
-import { Alert, AlertDescription } from "../components/ui/alert"
+import { Role, useAuth } from "../../hooks/useAuth"
+import { Categories, Level, useTraining } from "../../hooks/useTraining"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card"
+import { Button } from "../ui/button"
+import { Input } from "../ui/input"
+import { Textarea } from "../ui/textarea"
+import { Alert, AlertDescription } from "../ui/alert"
 import { BookOpen, ArrowLeft, Shield } from "lucide-react"
 import { Link, useNavigate } from "react-router"
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "./ui/form"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { trainingSchema } from "../schemas/schemas"
+import { trainingSchema } from "../../schemas/schemas"
 import z from "zod"
-import { Select,SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
+import ReactQuill from "react-quill"
+import { useParams } from "react-router"
+import { useEffect } from "react"
 
 
-   
+
 
 
 export default function AddTrainingForm() {
+    const {id} = useParams();
     const { user } = useAuth()
-    const { addModule } = useTraining();
+    const { addModule,getModule ,updateModule} = useTraining();
 
     const navigate = useNavigate()
 
-   
+      const module = getModule(id as string)
+
+
     type TrainingFormValues = z.infer<typeof trainingSchema>
 
     const form = useForm({
@@ -40,8 +44,19 @@ export default function AddTrainingForm() {
             level: Level.Beginner
         }
     })
-   
-  const {isSubmitSuccessful, isSubmitting} = form.formState;
+
+    useEffect(()=>{
+        if(module){
+            form.setValue("title",module.title)
+            form.setValue("description",module.description)
+            form.setValue("category",module.category)
+            form.setValue("duration",module.duration)
+            form.setValue("content",module.content)
+            form.setValue("level",module.level)
+        }
+    },[module,id])
+
+    const { isSubmitSuccessful, isSubmitting } = form.formState;
 
     if (!user) {
         navigate("/login")
@@ -69,22 +84,28 @@ export default function AddTrainingForm() {
     }
 
 
-    const onSubmit: SubmitHandler<TrainingFormValues> =async (data) => {
+    const onSubmit: SubmitHandler<TrainingFormValues> = async (data) => {
         console.log(data);
-        
+
         try {
-             await addModule({
+            if(module){
+                await updateModule(module.id,data);
+                navigate("/training")
+            }else{
+                 await addModule({
                 ...data,
-                createdBy:user.email,
-                isActive:true
+                createdBy: user.email,
+                isActive: true
             });
-             setTimeout(() => {
-             navigate("/training")
+            setTimeout(() => {
+                navigate("/training")
             }, 2000)
+            }
+           
         } catch (error) {
             console.error("Error creating training module:", error)
         }
-       
+
 
     }
 
@@ -180,8 +201,8 @@ export default function AddTrainingForm() {
                                                 render={({ field }) => (
                                                     <FormItem>
                                                         <FormLabel>Category *</FormLabel>
-                                        
-                                                         <Select onValueChange={field.onChange} defaultValue={field.value} >
+
+                                                        <Select onValueChange={field.onChange} defaultValue={field.value} >
                                                             <FormControl>
                                                                 <SelectTrigger className="w-full">
                                                                     <SelectValue placeholder="Select Category " />
@@ -189,12 +210,12 @@ export default function AddTrainingForm() {
                                                             </FormControl>
                                                             <SelectContent>
                                                                 {
-                                                                    Categories.map((category,index) =>(
+                                                                    Categories.map((category, index) => (
                                                                         <SelectItem key={index} value={category}>{category}</SelectItem>
                                                                     ))
                                                                 }
-                                                                
-            
+
+
                                                             </SelectContent>
                                                         </Select>
                                                         <FormMessage />
@@ -275,25 +296,16 @@ export default function AddTrainingForm() {
                                             control={form.control}
                                             name="content"
                                             render={({ field }) => (
-                                                <FormItem>
+                                                <FormItem className="flex flex-col gap-2">
                                                     <FormLabel>Training Content *</FormLabel>
-                                                    <FormControl>
-                                                        <Textarea placeholder="# Training Module Title
+                                                    <FormControl >
+                                                        <ReactQuill
+                                                            theme="snow"
+                                                            {...field}
 
-                                ## Learning Objectives
-                                - Objective 1
-                                - Objective 2
-
-                                ## Module Content
-                                ### Section 1
-                                Content here...
-
-                                ### Section 2
-                                More content..."
-                                                            rows={15} {...field} />
+                                                        />
                                                     </FormControl>
-                                                    <FormDescription>Use Markdown formatting for rich content. Include headings, lists, and emphasis as needed.</FormDescription>
-
+                                
                                                     <FormMessage />
                                                 </FormItem>
                                             )}

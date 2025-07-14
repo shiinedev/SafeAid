@@ -49,27 +49,26 @@ const defaultModules: TrainingModule[] = [
     category: "First Aid",
     duration: "45 min",
     level: Level.Beginner,
-    content: `# Basic First Aid Fundamentals
+    content: `Basic First Aid Fundamentals
+               Learning Objectives
+              - Understand primary assessment techniques
+              - Learn basic wound care
+              - Master CPR basics
+              - Recognize emergency situations
 
-## Learning Objectives
-- Understand primary assessment techniques
-- Learn basic wound care
-- Master CPR basics
-- Recognize emergency situations
+               Module Content
+              1. Scene Safety
+              Always ensure the scene is safe before approaching a victim...
 
-## Module Content
-### 1. Scene Safety
-Always ensure the scene is safe before approaching a victim...
+              2. Primary Assessment
+              Check for responsiveness, breathing, and circulation...
 
-### 2. Primary Assessment
-Check for responsiveness, breathing, and circulation...
-
-### 3. Basic Wound Care
-Clean wounds with sterile water or saline...`,
-    createdBy: "system",
-    createdAt: "2024-01-01T00:00:00Z",
-    updatedAt: "2024-01-01T00:00:00Z",
-    isActive: true,
+              3. Basic Wound Care
+              Clean wounds with sterile water or saline...`,
+               createdBy: "system",
+               createdAt: "2024-01-01T00:00:00Z",
+               updatedAt: "2024-01-01T00:00:00Z",
+               isActive: true,
   },
   {
     id: "default_2",

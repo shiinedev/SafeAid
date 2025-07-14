@@ -164,7 +164,7 @@ export default function Training() {
                     </div>
                     {canManageTraining && (
                       <Button variant="ghost" size="sm" asChild>
-                        <Link to={`/training/${module.id}/edit`}>
+                        <Link to={`/training/edit/${module.id}`}>
                           <Edit className="h-4 w-4" />
                         </Link>
                       </Button>

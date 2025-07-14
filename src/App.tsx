@@ -1,15 +1,15 @@
 
 import { Outlet } from "react-router"
+import 'react-quill/dist/quill.snow.css'
 
-
-const App: React.FC = () => {
+const App = () => {
 
 
   return (
     <>
-   <Outlet />
+      <Outlet />
     </>
-    
+
   )
 }
 

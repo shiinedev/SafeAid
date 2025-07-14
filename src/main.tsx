@@ -6,15 +6,18 @@ import { RouterProvider } from 'react-router-dom'
 import router from './routes.tsx'
 import { AuthProvider } from './hooks/useAuth.tsx'
 import { TrainingProvider } from './hooks/useTraining.tsx'
+import { BeneficiariesProvider } from './hooks/useBeneficiaries.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
    
     <AuthProvider>
+      <BeneficiariesProvider>
       <TrainingProvider>
        <RouterProvider router={router} />
-    <App />
+      <App />
     </TrainingProvider>
+    </BeneficiariesProvider>
   </AuthProvider>
   </StrictMode>,
 )
