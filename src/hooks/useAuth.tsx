@@ -1,7 +1,7 @@
 
 import { createContext, useContext, useState, useEffect, type ReactNode } from "react"
 
-enum Role {
+export enum Role {
   Admin = "admin",
   Field_agent = "field_agent",
   Medical_staff = "medical_staff",

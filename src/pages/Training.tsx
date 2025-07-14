@@ -1,12 +1,12 @@
 
 import { useState } from "react"
 import { useAuth } from "../hooks/useAuth"
-import { useTraining } from "../hooks/useTraining"
+import { Categories, useTraining } from "../hooks/useTraining"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card"
 import { Button } from "../components/ui/button"
 import { Badge } from "../components/ui/badge"
 import { Input } from "../components/ui/input"
-import { BookOpen, Heart, Shield, Users, Search, Play, Download, Clock, Plus, Edit } from "lucide-react"
+import { BookOpen, Heart, Shield, Users, Search, Play, Download, Clock, Plus, Edit, ArrowLeft } from "lucide-react"
 import {Link} from "react-router"
 
 export default function Training() {
@@ -23,7 +23,7 @@ export default function Training() {
     )
   }
 
-  const categories = ["All", ...Array.from(new Set(modules.map((module) => module.category)))]
+  const categories = ["All",...Categories]
 
   const filteredModules = modules.filter((module) => {
     const matchesSearch =
@@ -71,13 +71,13 @@ export default function Training() {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
-              <BookOpen className="sm:h-8 sm:w-8 h-4 w-4 text-purple-600" />
+              <BookOpen className="h-8 w-8  text-purple-600" />
               <div>
-                <h1 className="sm:text-2xl text-lg font-bold text-gray-900">Training Center</h1>
+                <h1 className="text-2xl  font-bold text-gray-900">Training Center</h1>
                 <p className="text-gray-600 sm:block hidden">Access offline training resources and materials</p>
               </div>
             </div>
-            <div className="flex items-center space-x-2">
+            <div className="hidden sm:flex items-center space-x-2">
               <Badge variant="outline">{modules.length} Modules</Badge>
               {canManageTraining && (
                 <Button asChild variant={"secondary"}>
@@ -98,6 +98,23 @@ export default function Training() {
 
       <div className="container mx-auto px-4 py-8">
         <div className="mb-6 space-y-4">
+           <div className="flex items-center justify-between space-x-2 sm:hidden">
+                         
+              <Button variant="outline" asChild>
+                <Link to="/dashboard">
+                <ArrowLeft /> 
+                 Dashboard</Link>
+              </Button>
+               <Badge variant="outline">{modules.length} Modules</Badge>  
+               {canManageTraining && (
+                <Button asChild variant={"secondary"}>
+                  <Link to="/training/new">
+                  
+                    Add Training
+                  </Link>
+                </Button>
+              )}
+            </div>
           <div className="flex flex-col sm:flex-row gap-4">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
@@ -109,6 +126,7 @@ export default function Training() {
               />
             </div>
             <div className="flex gap-2 flex-wrap">
+              
               {categories.map((category) => (
                 <Button
                   key={category}

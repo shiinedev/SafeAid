@@ -7,6 +7,7 @@ import Dashboard from './pages/dashboard/Dashboard'
 import Login from './pages/Login'
 import Training from './pages/Training'
 import ProtectedRoute from './components/ProtectedRoute'
+import AddTrainingForm from './components/AddTrainingForm'
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         path:"/training",
         element:<Training />
+      },
+       {
+        path:"/training/new",
+        element:<AddTrainingForm />
       },
       {
         path: '/dashboard',

@@ -2,7 +2,8 @@
 
 import { createContext, useContext, useState, useEffect, type ReactNode } from "react"
 import { encryptData, decryptData } from "../lib/encryption"
-enum Level  {
+
+export enum Level  {
     Beginner = "Beginner",
     Intermediate = "Intermediate",
     Advanced = "Advanced",
@@ -36,6 +37,8 @@ interface TrainingContextType {
 }
 
 const TrainingContext = createContext<TrainingContextType | undefined>(undefined)
+
+export const Categories:string[] = ["First Aid","Trauma Care","Data Security","Mental Health"]
 
 // Default training modules for initial setup
 const defaultModules: TrainingModule[] = [
