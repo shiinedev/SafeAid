@@ -23,7 +23,7 @@ import {
 } from "../ui/form";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { trainingSchema } from "../../schemas/schemas";
+import { TrainingFormValues, trainingSchema } from "../../schemas/schemas";
 import z from "zod";
 import {
   Select,
@@ -45,7 +45,7 @@ export default function AddTrainingForm() {
 
   const module = getModule(id as string);
 
-  type TrainingFormValues = z.infer<typeof trainingSchema>;
+ 
 
   const form = useForm({
     resolver: zodResolver(trainingSchema),

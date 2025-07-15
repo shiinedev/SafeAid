@@ -7,17 +7,20 @@ import router from './routes.tsx'
 import { AuthProvider } from './hooks/useAuth.tsx'
 import { TrainingProvider } from './hooks/useTraining.tsx'
 import { BeneficiariesProvider } from './hooks/useBeneficiaries.tsx'
+import { UsersProvider } from './hooks/useUsers'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
    
     <AuthProvider>
+      <UsersProvider>
       <BeneficiariesProvider>
       <TrainingProvider>
        <RouterProvider router={router} />
       <App />
     </TrainingProvider>
     </BeneficiariesProvider>
+    </UsersProvider>
   </AuthProvider>
   </StrictMode>,
 )
