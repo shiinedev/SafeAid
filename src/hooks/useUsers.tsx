@@ -1,11 +1,14 @@
+
 import { createContext, useContext, useState, useEffect, type ReactNode } from "react"
 import { encryptData, decryptData } from "@/lib/encryption"
+import { Role } from "./useAuth"
 
 interface User {
   id: string
   email: string
   name: string
-  role: "admin" | "field_agent" | "medical_staff" | "trainer"
+  role: Role
+  password: string
   isActive: boolean
   createdAt: string
   lastLogin?: string
@@ -24,13 +27,14 @@ interface UsersContextType {
 
 const UsersContext = createContext<UsersContextType | undefined>(undefined)
 
-// Default users for demo
+// Default users for demo - these include passwords
 const defaultUsers: User[] = [
   {
     id: "1",
     email: "admin@safeaid.org",
     name: "Admin User",
-    role: "admin",
+    role: Role.Admin,
+    password: "admin123",
     isActive: true,
     createdAt: "2024-01-01T00:00:00Z",
     lastLogin: "2024-01-15T10:30:00Z",
@@ -40,7 +44,8 @@ const defaultUsers: User[] = [
     id: "2",
     email: "agent@safeaid.org",
     name: "Field Agent",
-    role: "field_agent",
+    role: Role.Field_agent,
+    password: "agent123",
     isActive: true,
     createdAt: "2024-01-02T00:00:00Z",
     lastLogin: "2024-01-14T14:20:00Z",
@@ -50,7 +55,8 @@ const defaultUsers: User[] = [
     id: "3",
     email: "medical@safeaid.org",
     name: "Medical Staff",
-    role: "medical_staff",
+    role: Role.Medical_staff,
+    password: "medical123",
     isActive: true,
     createdAt: "2024-01-03T00:00:00Z",
     lastLogin: "2024-01-13T09:15:00Z",
@@ -60,7 +66,8 @@ const defaultUsers: User[] = [
     id: "4",
     email: "trainer@safeaid.org",
     name: "Trainer",
-    role: "trainer",
+    role: Role.Trainer,
+    password: "trainer123",
     isActive: true,
     createdAt: "2024-01-04T00:00:00Z",
     lastLogin: "2024-01-12T16:45:00Z",
