@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
-import { Users, Search, UserPlus, Edit, Trash2, Shield, Calendar, Clock } from "lucide-react"
+import { Users, Search, UserPlus, Trash2, Shield, Calendar, Clock } from "lucide-react"
 import {Link, useNavigate} from "react-router"
 
 
@@ -16,7 +16,7 @@ export default function UsersPage() {
   const router = useNavigate()
 
   if (!user) {
-    router("/auth/login")
+    router("/login")
     return null
   }
 
@@ -99,7 +99,7 @@ export default function UsersPage() {
 
       <div className="container mx-auto px-4 py-8">
         <div className="mb-6">
-          <div className="relative max-w-md">
+          <div className="relative max-w-full">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
             <Input
               placeholder="Search users..."
@@ -140,7 +140,7 @@ export default function UsersPage() {
                       <CardTitle className="flex items-center space-x-2">
                         <span>{u.name}</span>
                         <Badge className={getRoleColor(u.role)}>{u.role.replace("_", " ").toUpperCase()}</Badge>
-                        <Badge variant={u.isActive ? "default" : "secondary"}>
+                        <Badge variant={u.isActive ? "secondary" : "default"}>
                           {u.isActive ? "Active" : "Inactive"}
                         </Badge>
                       </CardTitle>
@@ -187,12 +187,7 @@ export default function UsersPage() {
                       >
                         {u.isActive ? "Deactivate" : "Activate"}
                       </Button>
-                      <Button variant="outline" size="sm" asChild>
-                        <Link to={`/users/${u.id}/edit`}>
-                          <Edit className="h-4 w-4 mr-1" />
-                          Edit
-                        </Link>
-                      </Button>
+                    
                       <Button
                         variant="outline"
                         size="sm"

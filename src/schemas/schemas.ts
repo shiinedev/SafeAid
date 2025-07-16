@@ -1,6 +1,6 @@
 import { Role } from "@/hooks/useAuth";
-import z, { boolean } from "zod";
-import { string } from "zod/v3";
+import z from "zod";
+
 
 export const loginSchema = z.object({
   email: z.email("Email is not valid"),
@@ -43,7 +43,7 @@ export const userSchema = z
     name: z.string().min(1, "name is required"),
     role: z.nativeEnum(Role),
     password: z.string().min(6, "Password must be at least 6 characters"),
-    confirmPassword: z.string(),
+    confirmPassword: z.string("confirm your password"),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",

@@ -1,20 +1,21 @@
 // src/routes.tsx
 import { createBrowserRouter } from 'react-router-dom'
 
-import Home from './pages/Home'
+import Home from '@/pages/Home'
 import App from './App'
-import Dashboard from './pages/dashboard/Dashboard'
-import Login from './pages/Login'
-import Training from './pages/Training'
-import ProtectedRoute from './components/ProtectedRoute'
-import AddTrainingForm from './components/training/AddTrainingForm'
-import TrainingDetails from './components/training/TrainingDetails'
-import UsersPage from './pages/dashboard/Users'
-import BeneficiariesPage from './pages/dashboard/Beneficiaries'
-import SettingsPage from './pages/dashboard/Setting'
-import AddBeneficiariesForm from './components/AddBeneficiariesForm'
-import AddUsersForm from './components/AddUserForm'
-import SyncPage from './pages/dashboard/SyncPage'
+import Dashboard from '@/pages/dashboard/Dashboard'
+import Login from '@/pages/Login'
+import Training from '@/pages/Training'
+import ProtectedRoute from '@/components/ProtectedRoute'
+import AddTrainingForm from '@/components/training/AddTrainingForm'
+import TrainingDetails from '@/components/training/TrainingDetails'
+import UsersPage from '@/pages/dashboard/Users'
+import BeneficiariesPage from '@/pages/dashboard/Beneficiaries'
+import SettingsPage from '@/pages/dashboard/Setting'
+import AddBeneficiariesForm from '@/components/Beneficiaries/AddBeneficiariesForm'
+import AddUsersForm from '@/components/AddUserForm'
+import SyncPage from '@/pages/dashboard/SyncPage'
+import BeneficiaryDetails from '@/components/Beneficiaries/BeneficiaryDetails'
 
 const router = createBrowserRouter([
   {
@@ -81,6 +82,13 @@ const router = createBrowserRouter([
         path: "/beneficiaries/:id/edit",
         element: <ProtectedRoute>
           <AddBeneficiariesForm />
+        </ProtectedRoute>
+
+      },
+      {
+        path: "/beneficiaries/:id",
+        element: <ProtectedRoute>
+          <BeneficiaryDetails />
         </ProtectedRoute>
 
       },

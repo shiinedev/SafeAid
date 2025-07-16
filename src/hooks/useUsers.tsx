@@ -1,7 +1,7 @@
 
 import { createContext, useContext, useState, useEffect, type ReactNode } from "react"
 import { encryptData, decryptData } from "@/lib/encryption"
-import { Role } from "./useAuth"
+
 
 interface User {
   id: string
@@ -13,6 +13,13 @@ interface User {
   createdAt: string
   lastLogin?: string
   createdBy: string
+}
+
+ enum Role {
+  Admin = "admin",
+  Field_agent = "field_agent",
+  Medical_staff = "medical_staff",
+  Trainer = "trainer"
 }
 
 interface UsersContextType {
@@ -124,6 +131,8 @@ export function UsersProvider({ children }: { children: ReactNode }) {
   }
 
   const updateUser = async (id: string, updates: Partial<User>) => {
+    console.log(updates);
+    
     const updatedUsers = users.map((user) => (user.id === id ? { ...user, ...updates } : user))
     setUsers(updatedUsers)
     await saveUsers(updatedUsers)
@@ -146,7 +155,7 @@ export function UsersProvider({ children }: { children: ReactNode }) {
   return (
     <UsersContext.Provider
       value={{
-        users: users.filter((u) => u.isActive),
+        users: users,
         addUser,
         updateUser,
         deleteUser,

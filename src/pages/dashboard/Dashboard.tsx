@@ -73,7 +73,7 @@ const  Dashboard = () =>{
         iconColor: "text-purple-600",
     })
 
-    if (user.role === "admin") {
+    if (user.role === Role.Admin) {
       actions.push({
         title: "User Management",
         description: "Manage user accounts and roles",
@@ -85,7 +85,7 @@ const  Dashboard = () =>{
       })
     }
 
-    if (user.role === "admin") {
+    if (user.role === Role.Admin) {
       actions.push({
         title: "Sync Center",
         description: "Manage data synchronization",
@@ -111,7 +111,7 @@ const  Dashboard = () =>{
                 <h1 className="text-2xl font-bold text-gray-900">SafeAid Dashboard</h1>
                 <div className="flex items-center space-x-2">
                   <Badge className={getRoleColor(user.role)}>{user.role.replace("_", " ").toUpperCase()}</Badge>
-                  <Badge variant={isOffline ? "destructive" : "default"}>{isOffline ? "OFFLINE" : "ONLINE"}</Badge>
+                  <Badge variant={isOffline ? "destructive" : "secondary"}>{isOffline ? "OFFLINE" : "ONLINE"}</Badge>
                 </div>
               </div>
             </div>

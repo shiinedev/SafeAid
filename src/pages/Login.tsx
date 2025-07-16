@@ -38,8 +38,8 @@ const Register = () => {
     },
   });
 
-  console.log(form);
-  
+ 
+ 
 
   const navigate = useNavigate();
 

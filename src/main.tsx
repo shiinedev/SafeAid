@@ -11,16 +11,17 @@ import { UsersProvider } from './hooks/useUsers'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-   
+   <UsersProvider>
     <AuthProvider>
-      <UsersProvider>
+      
       <BeneficiariesProvider>
       <TrainingProvider>
        <RouterProvider router={router} />
       <App />
     </TrainingProvider>
     </BeneficiariesProvider>
-    </UsersProvider>
+   
   </AuthProvider>
+   </UsersProvider>
   </StrictMode>,
 )
