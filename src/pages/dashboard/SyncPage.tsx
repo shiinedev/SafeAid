@@ -6,7 +6,9 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Database, Upload, Download, Shield, AlertTriangle, CheckCircle, Clock, Users } from "lucide-react"
-import {Link, useNavigate} from "react-router"
+import { Link, useNavigate } from "react-router"
+import jsPDF from "jspdf"
+import autoTable from "jspdf-autotable"
 
 
 export default function SyncPage() {
@@ -58,9 +60,11 @@ export default function SyncPage() {
     }
   }
 
-  const handleExportAll = () => {
+ 
+ const handleExportAll = () => {
     try {
-      const exportData = {
+      // Use the decrypted beneficiaries from the hook instead of parsing encrypted localStorage
+      const data = {
         beneficiaries: beneficiaries,
         metadata: {
           exportedBy: user.email,
@@ -68,20 +72,46 @@ export default function SyncPage() {
           totalRecords: beneficiaries.length,
         },
       }
+      const doc = new jsPDF()
 
-      const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: "application/json" })
-      const url = URL.createObjectURL(blob)
-      const a = document.createElement("a")
-      a.href = url
-      a.download = `safeaid_full_export_${new Date().toISOString().split("T")[0]}.json`
-      document.body.appendChild(a)
-      a.click()
-      document.body.removeChild(a)
-      URL.revokeObjectURL(url)
+      // Add title and metadata
+      doc.setFontSize(16)
+      doc.text('SafeAid Data Export', 14, 15)
+
+      doc.setFontSize(10)
+      doc.text(`Exported on: ${new Date().toLocaleString()}`, 14, 22)
+      doc.text(`User: ${user.email} (${user.role})`, 14, 28)
+
+      // Table headers
+      const tableHeaders = ['Name', 'Age', 'contact', "emergencyContact", "location", "medicalInfo", "notes"]
+
+      // Table rows (converted to string just in case)
+      const tableRows = data?.beneficiaries.map(b => [
+        b.name ?? '',
+        b.age?.toString() ?? '',
+        b.contact ?? '',
+        b.emergencyContact ?? '',
+        b.location ?? '',
+        b.medicalInfo ?? '',
+        b.notes ?? ''
+      ])
+
+      // Generate table
+      autoTable(doc, {
+        head: [tableHeaders],
+        body: tableRows,
+        startY: 35,
+      })
+
+      // Save the PDF
+      doc.save(`safeaid_export_${new Date().toISOString().split('T')[0]}.pdf`)
+      alert('PDF exported successfully with table!')
     } catch (error) {
       console.error("Error exporting data:", error)
+      alert("Error exporting data. Please try again.")
     }
   }
+
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -200,15 +230,15 @@ export default function SyncPage() {
               <CardDescription>Export encrypted data for backup or transfer</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="grid md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 gap-4">
                 <Button onClick={handleExportAll} variant="outline" className="w-full bg-transparent">
                   <Download className="h-4 w-4 mr-2" />
                   Export All Data
                 </Button>
-                <Button variant="outline" className="w-full bg-transparent">
+                {/* <Button variant="outline" className="w-full bg-transparent">
                   <Users className="h-4 w-4 mr-2" />
                   Export Beneficiaries Only
-                </Button>
+                </Button> */}
               </div>
 
               <div className="text-sm text-gray-600">

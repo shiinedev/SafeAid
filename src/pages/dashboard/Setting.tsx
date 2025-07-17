@@ -1,4 +1,5 @@
-
+import jsPDF from 'jspdf'
+import autoTable from 'jspdf-autotable'
 import { useState } from "react"
 import { useAuth } from "@/hooks/useAuth"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -9,7 +10,7 @@ import { Switch } from "@/components/ui/switch"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Settings, Shield, AlertTriangle, Trash2, Download, Upload, User, Lock, Database } from "lucide-react"
 import { useBeneficiaries } from "@/hooks/useBeneficiaries"
-import { useNavigate ,Link} from "react-router"
+import { useNavigate, Link } from "react-router"
 
 export default function SettingsPage() {
   const { user, logout } = useAuth()
@@ -48,7 +49,7 @@ export default function SettingsPage() {
 
         // Logout and redirect
         logout()
-       navigate("/")
+        navigate("/")
 
         alert("Panic wipe completed. All local data has been destroyed.")
       } catch (error) {
@@ -70,18 +71,40 @@ export default function SettingsPage() {
           role: user.role,
         },
       }
+      const doc = new jsPDF()
 
-      const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" })
-      const url = URL.createObjectURL(blob)
-      const a = document.createElement("a")
-      a.href = url
-      a.download = `safeaid_export_${new Date().toISOString().split("T")[0]}.json`
-      document.body.appendChild(a)
-      a.click()
-      document.body.removeChild(a)
-      URL.revokeObjectURL(url)
+      // Add title and metadata
+      doc.setFontSize(16)
+      doc.text('SafeAid Data Export', 14, 15)
 
-      alert("Data exported successfully!")
+      doc.setFontSize(10)
+      doc.text(`Exported on: ${new Date().toLocaleString()}`, 14, 22)
+      doc.text(`User: ${user.email} (${user.role})`, 14, 28)
+
+      // Table headers
+      const tableHeaders = ['Name', 'Age', 'contact', "emergencyContact", "location", "medicalInfo", "notes"]
+
+      // Table rows (converted to string just in case)
+      const tableRows = data?.beneficiaries.map(b => [
+        b.name ?? '',
+        b.age?.toString() ?? '',
+        b.contact ?? '',
+        b.emergencyContact ?? '',
+        b.location ?? '',
+        b.medicalInfo ?? '',
+        b.notes ?? ''
+      ])
+
+      // Generate table
+      autoTable(doc, {
+        head: [tableHeaders],
+        body: tableRows,
+        startY: 35,
+      })
+
+      // Save the PDF
+      doc.save(`safeaid_export_${new Date().toISOString().split('T')[0]}.pdf`)
+      alert('PDF exported successfully with table!')
     } catch (error) {
       console.error("Error exporting data:", error)
       alert("Error exporting data. Please try again.")
@@ -184,18 +207,18 @@ export default function SettingsPage() {
                 <Database className="h-5 w-5 mr-2" />
                 Data Management
               </CardTitle>
-              <CardDescription>Export, import, and manage your local data</CardDescription>
+              <CardDescription>Export and manage your local data</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="grid md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 gap-4">
                 <Button onClick={handleExportData} variant="outline" className="w-full bg-transparent">
                   <Download className="h-4 w-4 mr-2" />
                   Export Data
                 </Button>
-                <Button variant="outline" className="w-full bg-transparent">
+                {/* <Button variant="outline" className="w-full bg-transparent">
                   <Upload className="h-4 w-4 mr-2" />
                   Import Data
-                </Button>
+                </Button> */}
               </div>
               <p className="text-sm text-gray-600">
                 Export your data for backup or transfer to another device. All exported data remains encrypted.
