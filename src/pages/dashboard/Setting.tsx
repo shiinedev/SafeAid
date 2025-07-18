@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
 import { Alert, AlertDescription } from "@/components/ui/alert"
-import { Settings, Shield, AlertTriangle, Trash2, Download, Upload, User, Lock, Database } from "lucide-react"
+import { Settings, Shield, AlertTriangle, Trash2, Download, User, Lock, Database } from "lucide-react"
 import { useBeneficiaries } from "@/hooks/useBeneficiaries"
 import { useNavigate, Link } from "react-router"
 

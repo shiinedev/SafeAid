@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
-import { Users, Search, UserPlus, Trash2, Shield, Calendar, Clock } from "lucide-react"
+import { Users, Search, UserPlus, Trash2, Shield, Calendar } from "lucide-react"
 import {Link, useNavigate} from "react-router"
 
 
