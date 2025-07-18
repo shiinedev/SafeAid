@@ -24,7 +24,8 @@ export default function BeneficiaryDetailsPage() {
     }
   }, [user, navigate])
 
-  const canEdit = [Role.Admin, Role.Trainer].includes(user.role)
+ const canEdit = user ? [Role.Admin, Role.Trainer].includes(user.role) : false;
+  
 
   if ( beneficiariesLoading) {
     return (

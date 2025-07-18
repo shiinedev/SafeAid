@@ -200,6 +200,7 @@ export default function AddBeneficiariesForm() {
                                 type={"number"}
                                 placeholder="Enter age"
                                 {...field}
+                                 value={field.value as number | string}
                               />
 
                             </FormControl>
