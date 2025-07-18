@@ -16,9 +16,9 @@ import { useEffect } from "react"
 
 export default function AddBeneficiariesForm() {
 
- 
+
   const { user } = useAuth()
-  const { addBeneficiary ,getBeneficiary, updateBeneficiary} = useBeneficiaries()
+  const { addBeneficiary, getBeneficiary, updateBeneficiary } = useBeneficiaries()
   const navigate = useNavigate();
 
   const form = useForm({
@@ -32,22 +32,22 @@ export default function AddBeneficiariesForm() {
       notes: ""
     }
   })
-   const {id} = useParams(); 
-    const Beneficiary = getBeneficiary(id as string);
-    
+  const { id } = useParams();
+  const Beneficiary = getBeneficiary(id as string);
 
-    useEffect(()=>{
-      if(Beneficiary){
-        form.setValue("name",Beneficiary.name)
-        form.setValue("age",Beneficiary.age)
-        form.setValue("contact",Beneficiary.contact)
-        form.setValue("emergencyContact",Beneficiary.emergencyContact)
-        form.setValue("medicalInfo",Beneficiary.medicalInfo)
-        form.setValue("location",Beneficiary.location)
-        form.setValue("notes",Beneficiary.notes)
 
-      }
-    },[Beneficiary,id])
+  useEffect(() => {
+    if (Beneficiary) {
+      form.setValue("name", Beneficiary.name)
+      form.setValue("age", Beneficiary.age)
+      form.setValue("contact", Beneficiary.contact)
+      form.setValue("emergencyContact", Beneficiary.emergencyContact)
+      form.setValue("medicalInfo", Beneficiary.medicalInfo)
+      form.setValue("location", Beneficiary.location)
+      form.setValue("notes", Beneficiary.notes)
+
+    }
+  }, [Beneficiary, id])
 
   const { isSubmitSuccessful, isSubmitting } = form.formState;
 
@@ -76,31 +76,31 @@ export default function AddBeneficiariesForm() {
     )
   }
 
-  const onSubmit: SubmitHandler<Beneficiary> =async (data) => {
+  const onSubmit: SubmitHandler<Beneficiary> = async (data) => {
     console.log(data);
     try {
 
-      if(Beneficiary){
-        await updateBeneficiary(Beneficiary.id,data);
+      if (Beneficiary) {
+        await updateBeneficiary(Beneficiary.id, data);
         navigate("/beneficiaries")
-      }else{
+      } else {
         await addBeneficiary({
-        ...data,
-        registeredBy:user.email,
-        registeredAt: new Date().toDateString()
-      });
-      setTimeout(()=>{
+          ...data,
+          registeredBy: user.email,
+          registeredAt: new Date().toDateString()
+        });
+        setTimeout(() => {
           navigate("/beneficiaries")
-        },2000)
+        }, 2000)
       }
-      
+
     } catch (error) {
-      
+
     }
 
   }
 
-  if (isSubmitSuccessful) {
+  if (isSubmitSuccessful && !Beneficiary) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <Card className="max-w-md">
@@ -124,27 +124,29 @@ export default function AddBeneficiariesForm() {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="bg-white shadow-sm border-b">
-        <div className="container mx-auto px-4 py-4">
+        <div className="max-w-2xl mx-auto px-4 py-4">
+
           <div className="flex items-center space-x-4">
-            <Button variant="outline" size="sm" asChild>
-              <Link to="/beneficiaries">
-                <ArrowLeft className="h-4 w-4 mr-2" />
-                Back
-              </Link>
-            </Button>
-            <div className="flex items-center space-x-4">
-              <UserPlus className="h-8 w-8 text-blue-600" />
-              <div>
-                <h1 className="text-2xl font-bold text-gray-900">Register New Beneficiary</h1>
-                <p className="text-gray-600">Add a new beneficiary to the secure database</p>
-              </div>
+            <UserPlus className="h-8 w-8 text-blue-600" />
+            <div>
+              <h1 className="text-2xl font-bold text-gray-900">{Beneficiary ? 'Update' : "Registered"} Beneficiary</h1>
+              <p className="text-gray-600">{Beneficiary ? "Update" : "Add a new"} beneficiary to the secure database</p>
             </div>
           </div>
+
         </div>
       </div>
 
       <div className="container mx-auto px-4 py-8">
+        
         <div className="max-w-2xl mx-auto">
+           <Button  size="sm" className="mb-4" asChild>
+              <Link to="/beneficiaries">
+                <ArrowLeft className="h-4 w-4" />
+                Go Back
+              </Link>
+            </Button>
+            
           <Alert className="mb-6 border-blue-200 bg-blue-50">
             <Shield className="h-4 w-4" />
             <AlertDescription>
@@ -199,7 +201,7 @@ export default function AddBeneficiariesForm() {
                                 placeholder="Enter age"
                                 {...field}
                               />
-                              
+
                             </FormControl>
 
                             <FormMessage />
@@ -318,7 +320,7 @@ export default function AddBeneficiariesForm() {
 
                   <div className="flex space-x-4">
                     <Button type="submit" className="flex-1 bg-blue-600 hover:bg-blue-700" disabled={isSubmitting}>
-                      {isSubmitting ? "Registering..." : "Register Beneficiary"}
+                      {Beneficiary ? isSubmitting ? "Updating..." : "Update Beneficiary" : isSubmitting ? "Registering..." : "Register Beneficiary"}
                     </Button>
                     <Button type="button" variant="outline" asChild>
                       <Link to="/beneficiaries">Cancel</Link>

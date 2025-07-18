@@ -116,13 +116,13 @@ export default function SyncPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="bg-white shadow-sm border-b">
-        <div className="container mx-auto px-4 py-4">
+        <div className="max-w-4xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2">
               <Database className="h-8 w-8 text-blue-600" />
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">Sync Center</h1>
-                <p className="text-gray-600">Manage data synchronization and exports</p>
+                <h1 className="sm:text-2xl font-bold text-gray-900">Sync Center</h1>
+                <p className="text-gray-600  hidden sm:block">Manage data synchronization and exports</p>
               </div>
             </div>
             <div className="flex items-center space-x-2">
@@ -148,17 +148,17 @@ export default function SyncPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid md:grid-cols-3 gap-4">
-                <div className="text-center">
+                <div className="flex sm:flex-col items-center space-x-2 sm:text-center">
                   <div className="text-2xl font-bold text-blue-600">{beneficiaries.length}</div>
                   <div className="text-sm text-gray-600">Local Records</div>
                 </div>
-                <div className="text-center">
+                <div className="sm:text-center">
                   <div className="text-2xl font-bold text-green-600">
                     {syncStatus === "success" ? "Synced" : "Pending"}
                   </div>
                   <div className="text-sm text-gray-600">Sync Status</div>
                 </div>
-                <div className="text-center">
+                <div className="sm:text-center">
                   <div className="text-2xl font-bold text-gray-600">
                     {lastSync ? new Date(lastSync).toLocaleDateString() : "Never"}
                   </div>

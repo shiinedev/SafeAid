@@ -58,15 +58,9 @@ const  TrainingDetails = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="bg-white shadow-sm border-b">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <Button variant="outline" size="sm" asChild>
-                <Link to="/training">
-                  <ArrowLeft className="h-4 w-4 mr-2" />
-                  Back to Training
-                </Link>
-              </Button>
+        <div className="max-w-4xl mx-auto px-4 py-4">
+
+              
               <div className="flex items-center space-x-4">
                 <BookOpen className="h-8 w-8 text-purple-600" />
                 <div>
@@ -74,21 +68,28 @@ const  TrainingDetails = () => {
                   <p className="text-gray-600">{module.description}</p>
                 </div>
               </div>
-            </div>
+           
+        </div>
+      </div>
+
+      <div className="container mx-auto px-4 py-8">
+        <div className="max-w-4xl mx-auto space-y-6">
+           <div className="flex items-center justify-between space-x-4">
+            <Button  size="sm" asChild>
+                <Link to="/training">
+                  <ArrowLeft className="h-4 w-4 mr-2" />
+                  Go Back
+                </Link>
+              </Button>
             {canEdit && (
-              <Button variant="outline" asChild>
+              <Button className="bg-green-600 text-white hover:bg-green-700"asChild>
                 <Link to={`/training/edit/${module.id}`}>
                   <Edit className="h-4 w-4 mr-2" />
                   Edit Module
                 </Link>
               </Button>
             )}
-          </div>
-        </div>
-      </div>
-
-      <div className="container mx-auto px-4 py-8">
-        <div className="max-w-4xl mx-auto space-y-6">
+           </div>
           {/* Module Info */}
           <Card>
             <CardHeader>
@@ -137,7 +138,7 @@ const  TrainingDetails = () => {
           </Card>
 
           {/* Actions */}
-          <Card>
+          {/* <Card>
             <CardContent className="pt-6">
               <div className="flex justify-center space-x-4">
                 <Button className="bg-green-600 hover:bg-green-700">Mark as Completed</Button>
@@ -147,7 +148,7 @@ const  TrainingDetails = () => {
                 </Button>
               </div>
             </CardContent>
-          </Card>
+          </Card> */}
         </div>
       </div>
     </div>

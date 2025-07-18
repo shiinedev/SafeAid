@@ -51,7 +51,7 @@ export default function BeneficiariesPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="bg-white shadow-sm border-b">
-        <div className="container mx-auto px-4 py-4">
+        <div className="max-w-4xl mx-auto px-2 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <Users className="h-8 w-8 text-blue-600" />
@@ -60,7 +60,7 @@ export default function BeneficiariesPage() {
                 <p className="text-gray-600">Manage and view beneficiary information</p>
               </div>
             </div>
-            <div className=" hidden sm:flex items-center space-x-2">
+            {/* <div className=" hidden sm:flex items-center space-x-2">
               {(user.role === Role.Admin || user.role === Role.Field_agent) && (
                 <Button asChild className="bg-blue-600 hover:bg-blue-700">
                   <Link to="/beneficiaries/new">
@@ -72,14 +72,14 @@ export default function BeneficiariesPage() {
               <Button variant="outline" asChild>
                 <Link to="/dashboard">Dashboard</Link>
               </Button>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
 
-      <div className="container mx-auto px-4 space-y-4 py-6">
+      <div className="max-w-4xl  mx-auto px-4 space-y-4 py-6">
 
-        <div className="sm:hidden flex justify-between items-center space-x-2">
+        <div className="flex justify-between items-center space-x-2">
           {(user.role === Role.Admin || user.role === Role.Field_agent) && (
             <Button asChild className="bg-blue-600 hover:bg-blue-700">
               <Link to="/beneficiaries/new">
@@ -129,35 +129,38 @@ export default function BeneficiariesPage() {
             filteredBeneficiaries.map((beneficiary) => (
               <Card key={beneficiary.id} className="hover:shadow-md transition-shadow">
                 <CardHeader>
-                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between  sm:space-y-0">
-                    <div className="flex-1 min-w-0">
-                      <CardTitle className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-2">
-                        <span className="truncate">{beneficiary.name}</span>
-                        <Badge variant="outline" className="self-start sm:self-auto">
-                          ID: {beneficiary.id}
-                        </Badge>
-                      </CardTitle>
-                      <CardDescription className="flex  items-center  space-y-0 space-x-4 mt-2">
-                        <span className="flex items-center">
-                          <Calendar className="h-4 w-4 mr-1 " />
-                          Age: {beneficiary.age}
+
+                  <CardTitle className="flex flex-row items-center justify-between">
+                    <span className="truncate">{beneficiary.name}</span>
+                    <Badge variant="outline">
+                      ID: {beneficiary.id}
+                    </Badge>
+                  </CardTitle>
+                  <CardDescription className="flex  items-center justify-between  space-y-0 space-x-4 mt-2">
+                    <span className="flex items-center">
+                      <MapPin className="h-4 w-4 mr-1 flex-shrink-0 text-green-600" />
+                      <span className="truncate">
+                        {beneficiary.location}
                         </span>
-                        <span className="flex items-center">
-                          <MapPin className="h-4 w-4 mr-1 flex-shrink-0" />
-                          <span className="truncate">{beneficiary.location}</span>
-                        </span>
-                      </CardDescription>
-                    </div>
-                    <div className="flex items-center mt-2 sm:mt-0">
+                    </span>
+                    <span className="flex items-center space-x-2">
+                      <Calendar className="h-4 w-4 mr-1 text-rose-500" />
+                     <strong className="text-foreground mr-1">Age: </strong> {beneficiary.age}
+                    </span>
+                   <div className="flex items-center  sm:mt-0">
                       <Badge className="bg-green-100 text-green-800 whitespace-nowrap">
                         <Shield className="h-3 w-3 mr-1" />
                         Encrypted
                       </Badge>
                     </div>
-                  </div>
+
+                  </CardDescription>
+
+
+
                 </CardHeader>
                 <CardContent>
-                  <div className="flex flex-col xl:flex-row space-y-2 xl:space-y-0 xl:justify-between">
+                  <div className="flex flex-col sm:flex-row sm:items-center space-y-4">
                     <div className="text-sm text-gray-600 space-y-1 flex-1 min-w-0">
                       <p className="break-words">
                         <strong>Contact:</strong> {beneficiary.contact}
@@ -171,8 +174,8 @@ export default function BeneficiariesPage() {
                         </p>
                       )}
                     </div>
-                    <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2 xl:ml-4">
-                      <Button variant="outline" size="sm" asChild className="w-full sm:w-auto">
+                    <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
+                      <Button variant="secondary" size="sm" asChild className="w-full sm:w-auto">
                         <Link to={`/beneficiaries/${beneficiary.id}`}>
                           <Eye className="h-4 w-4 mr-1" />
                           View
@@ -180,17 +183,17 @@ export default function BeneficiariesPage() {
                       </Button>
                       {(user.role === Role.Admin || user.role === Role.Field_agent) && (
                         <>
-                          <Button variant="outline" size="sm" asChild className="w-full sm:w-auto">
+                          <Button size="sm" asChild className="w-full text-white bg-green-600 hover:bg-green-700 sm:w-auto">
                             <Link to={`/beneficiaries/${beneficiary.id}/edit`}>
                               <Edit className="h-4 w-4 mr-1" />
                               Edit
                             </Link>
                           </Button>
                           <Button
-                            variant="outline"
+                            variant="destructive"
                             size="sm"
                             onClick={() => deleteBeneficiary(beneficiary.id)}
-                            className="text-red-600 hover:text-red-700 w-full sm:w-auto"
+                            className=" w-full sm:w-auto"
                           >
                             <Trash2 className="h-4 w-4 mr-1" />
                             Delete

@@ -73,7 +73,7 @@ export default function UsersPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="bg-white shadow-sm border-b">
-        <div className="container mx-auto px-4 py-4">
+        <div className="max-w-4xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <Users className="h-8 w-8 text-blue-600" />
@@ -82,7 +82,14 @@ export default function UsersPage() {
                 <p className="text-gray-600">Manage user accounts and permissions</p>
               </div>
             </div>
-            <div className="flex items-center space-x-2">
+           
+          </div>
+        </div>
+      </div>
+
+      <div className="container mx-auto px-4 py-8">
+        <div className="max-w-4xl mx-auto  space-y-6">
+         <div className="flex items-center justify-between ">
               <Button asChild className="bg-blue-600 hover:bg-blue-700">
                 <Link to="/users/new">
                   <UserPlus className="h-4 w-4 mr-2" />
@@ -93,11 +100,7 @@ export default function UsersPage() {
                 <Link to="/dashboard">Dashboard</Link>
               </Button>
             </div>
-          </div>
-        </div>
-      </div>
 
-      <div className="container mx-auto px-4 py-8">
         <div className="mb-6">
           <div className="relative max-w-full">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
@@ -113,7 +116,7 @@ export default function UsersPage() {
         <div className="grid gap-4">
           {filteredUsers.length === 0 ? (
             <Card>
-              <CardContent className="text-center py-12">
+              <CardContent className="text-center">
                 <Users className="h-12 w-12 text-gray-400 mx-auto mb-4" />
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">
                   {searchTerm ? "No matching users found" : "No users found"}
@@ -135,7 +138,7 @@ export default function UsersPage() {
             filteredUsers.map((u) => (
               <Card key={u.id} className="hover:shadow-md transition-shadow">
                 <CardHeader>
-                  <div className="flex items-center justify-between">
+                  <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:items-center justify-between">
                     <div>
                       <CardTitle className="flex items-center space-x-2">
                         <span>{u.name}</span>
@@ -144,22 +147,16 @@ export default function UsersPage() {
                           {u.isActive ? "Active" : "Inactive"}
                         </Badge>
                       </CardTitle>
-                      <CardDescription className="flex items-center space-x-4 mt-2">
+                      <CardDescription className="flex flex-col sm:flex-row sm:items-center space-x-4 mt-2">
                         <span>{u.email}</span>
                         <span className="flex items-center">
                           <Calendar className="h-4 w-4 mr-1" />
                           Joined: {new Date(u.createdAt).toLocaleDateString()}
                         </span>
-                        {u.lastLogin && (
-                          <span className="flex items-center">
-                            <Clock className="h-4 w-4 mr-1" />
-                            Last login: {new Date(u.lastLogin).toLocaleDateString()}
-                          </span>
-                        )}
                       </CardDescription>
                     </div>
-                    <div className="flex items-center space-x-2">
-                      <Badge variant="outline">
+                    <div className="hidden sm:flex items-center justify-end space-x-2">
+                      <Badge className="bg-green-100 text-green-600">
                         <Shield className="h-3 w-3 mr-1" />
                         Encrypted
                       </Badge>
@@ -167,7 +164,7 @@ export default function UsersPage() {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <div className="flex items-center justify-between">
+                  <div className="flex flex-col space-y-2 sm:flex-row justify-between">
                     <div className="text-sm text-gray-600">
                       <p>
                         <strong>Created by:</strong> {u.createdBy}
@@ -176,7 +173,7 @@ export default function UsersPage() {
                         <strong>User ID:</strong> {u.id}
                       </p>
                     </div>
-                    <div className="flex space-x-2">
+                    <div className="flex space-x-2 justify-end">
                       <Button
                         variant="outline"
                         size="sm"
@@ -213,5 +210,6 @@ export default function UsersPage() {
         </div>
       </div>
     </div>
+      </div>
   )
 }

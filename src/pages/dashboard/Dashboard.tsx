@@ -105,10 +105,10 @@ const  Dashboard = () =>{
       <div className="bg-white shadow-sm border-b">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <Shield className="h-8 w-8 text-red-600" />
+            <div className="flex items-center space-x-2">
+              <Shield className="sm:h-8 sm:w-8 text-red-600" />
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">SafeAid Dashboard</h1>
+                <h1 className="sm:text-2xl font-bold text-gray-900">SafeAid Dashboard</h1>
                 <div className="flex items-center space-x-2">
                   <Badge className={getRoleColor(user.role)}>{user.role.replace("_", " ").toUpperCase()}</Badge>
                   <Badge variant={isOffline ? "destructive" : "secondary"}>{isOffline ? "OFFLINE" : "ONLINE"}</Badge>
@@ -118,12 +118,12 @@ const  Dashboard = () =>{
             <div className="flex items-center space-x-2">
               <Button variant="outline" asChild>
                 <Link to="/settings">
-                  <Settings className="h-4 w-4 mr-2" />
+                  <Settings />
                   Settings
                 </Link>
               </Button>
               <Button  onClick={logout}>
-                Sign Out
+                Logout
               </Button>
             </div>
           </div>

@@ -24,7 +24,6 @@ import {
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { TrainingFormValues, trainingSchema } from "../../schemas/schemas";
-import z from "zod";
 import {
   Select,
   SelectContent,
@@ -45,7 +44,7 @@ export default function AddTrainingForm() {
 
   const module = getModule(id as string);
 
- 
+
 
   const form = useForm({
     resolver: zodResolver(trainingSchema),
@@ -148,176 +147,65 @@ export default function AddTrainingForm() {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="bg-white shadow-sm border-b">
-        <div className="container mx-auto px-4 py-4">
+        <div className="max-w-4xl mx-auto px-4 py-4">
+
           <div className="flex items-center space-x-4">
-            <Button variant="outline" size="sm" asChild>
-              <Link to="/training">
-                <ArrowLeft className="h-4 w-4 mr-2" />
-                Back
-              </Link>
-            </Button>
-            <div className="flex items-center space-x-4">
-              <BookOpen className="h-8 w-8 text-purple-600" />
-              <div>
-                <h1 className="text-2xl font-bold text-gray-900">
-                  {module ? "Update Training Module" : "Create Training Module"}
-                </h1>
-                <p className="text-gray-600">
-                  {module
-                    ? "Update training content for field teams"
-                    : "Add new training content for field teams"}
-                </p>
-              </div>
+            <BookOpen className="h-8 w-8 text-purple-600" />
+            <div>
+              <h1 className="text-2xl font-bold text-gray-900">
+                {module ? "Update Training Module" : "Create Training Module"}
+              </h1>
+              <p className="text-gray-600">
+                {module
+                  ? "Update training content for field teams"
+                  : "Add new training content for field teams"}
+              </p>
             </div>
           </div>
+
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-8">
-        <div className="max-w-4xl mx-auto">
-          <Alert className="mb-6 border-purple-200 bg-purple-50">
-            <Shield className="h-4 w-4" />
-            <AlertDescription>
-              Training modules will be encrypted and stored locally for offline
-              access. All team members will be able to access this content.
-            </AlertDescription>
-          </Alert>
+        <div className="container mx-auto px-4 py-8">
+        <div className="max-w-4xl mx-auto space-y-6">
+        <Button size="sm" asChild>
+          <Link to="/training">
+            <ArrowLeft className="h-4 w-4 " />
+            Go Back
+          </Link>
+        </Button>
+        <Alert className="border-purple-200 bg-purple-50">
+          <Shield className="h-4 w-4" />
+          <AlertDescription>
+            Training modules will be encrypted and stored locally for offline
+            access. All team members will be able to access this content.
+          </AlertDescription>
+        </Alert>
 
-          <Card>
-            <CardHeader>
-              <CardTitle>Training Module Details</CardTitle>
-              <CardDescription>
-                Fill in the information below to create a new training module.
-                Use Markdown formatting for the content.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Form {...form}>
-                <form
-                  onSubmit={form.handleSubmit(onSubmit)}
-                  className="space-y-6">
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <FormField
-                        control={form.control}
-                        name="title"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Module Title *</FormLabel>
-                            <FormControl>
-                              <Input
-                                placeholder="e.g., Advanced Wound Care"
-                                {...field}
-                              />
-                            </FormControl>
-
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-
-                    <div className="space-y-2">
-                      <FormField
-                        control={form.control}
-                        name="category"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Category *</FormLabel>
-
-                            <Select
-                              onValueChange={field.onChange}
-                              defaultValue={field.value}>
-                              <FormControl>
-                                <SelectTrigger className="w-full">
-                                  <SelectValue placeholder="Select Category " />
-                                </SelectTrigger>
-                              </FormControl>
-                              <SelectContent>
-                                {Categories.map((category, index) => (
-                                  <SelectItem key={index} value={category}>
-                                    {category}
-                                  </SelectItem>
-                                ))}
-                              </SelectContent>
-                            </Select>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <FormField
-                        control={form.control}
-                        name="duration"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Duration *</FormLabel>
-                            <FormControl>
-                              <Input
-                                placeholder="e.g., 30 min, 1 hour"
-                                {...field}
-                              />
-                            </FormControl>
-
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-
-                    <div className="space-y-2">
-                      <FormField
-                        control={form.control}
-                        name="level"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Difficulty Level *</FormLabel>
-                            <Select
-                              onValueChange={field.onChange}
-                              defaultValue={field.value}>
-                              <FormControl>
-                                <SelectTrigger className="w-full">
-                                  <SelectValue placeholder="Select Level " />
-                                </SelectTrigger>
-                              </FormControl>
-                              <SelectContent>
-                                <SelectItem value={Level.Beginner}>
-                                  Beginner
-                                </SelectItem>
-                                <SelectItem value={Level.Intermediate}>
-                                  Intermediate
-                                </SelectItem>
-                                <SelectItem value={Level.Advanced}>
-                                  Advanced
-                                </SelectItem>
-                                <SelectItem value={Level.Essential}>
-                                  Essential
-                                </SelectItem>
-                              </SelectContent>
-                            </Select>
-
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-                  </div>
-
+        <Card>
+          <CardHeader>
+            <CardTitle>Training Module Details</CardTitle>
+            <CardDescription>
+              Fill in the information below to create a new training module.
+              Use Markdown formatting for the content.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-6">
+                <div className="grid md:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <FormField
                       control={form.control}
-                      name="description"
+                      name="title"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Description *</FormLabel>
+                          <FormLabel>Module Title *</FormLabel>
                           <FormControl>
-                            <Textarea
-                              rows={3}
-                              placeholder="Brief description of what this training covers"
+                            <Input
+                              placeholder="e.g., Advanced Wound Care"
                               {...field}
                             />
                           </FormControl>
@@ -331,12 +219,47 @@ export default function AddTrainingForm() {
                   <div className="space-y-2">
                     <FormField
                       control={form.control}
-                      name="content"
+                      name="category"
                       render={({ field }) => (
-                        <FormItem className="flex flex-col gap-2">
-                          <FormLabel>Training Content *</FormLabel>
+                        <FormItem>
+                          <FormLabel>Category *</FormLabel>
+
+                          <Select
+                            onValueChange={field.onChange}
+                            defaultValue={field.value}>
+                            <FormControl>
+                              <SelectTrigger className="w-full">
+                                <SelectValue placeholder="Select Category " />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              {Categories.map((category, index) => (
+                                <SelectItem key={index} value={category}>
+                                  {category}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <FormField
+                      control={form.control}
+                      name="duration"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Duration *</FormLabel>
                           <FormControl>
-                            <ReactQuill theme="snow" {...field} />
+                            <Input
+                              placeholder="e.g., 30 min, 1 hour"
+                              {...field}
+                            />
                           </FormControl>
 
                           <FormMessage />
@@ -345,29 +268,106 @@ export default function AddTrainingForm() {
                     />
                   </div>
 
-                  <div className="flex space-x-4">
-                    <Button
-                      type="submit"
-                      className="flex-1 bg-purple-600 hover:bg-purple-700"
-                      disabled={isSubmitting}>
-                      {module
-                        ? isSubmitting
-                          ? "updating..."
-                          : "Update Training Module"
-                        : isSubmitting
+                  <div className="space-y-2">
+                    <FormField
+                      control={form.control}
+                      name="level"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Difficulty Level *</FormLabel>
+                          <Select
+                            onValueChange={field.onChange}
+                            defaultValue={field.value}>
+                            <FormControl>
+                              <SelectTrigger className="w-full">
+                                <SelectValue placeholder="Select Level " />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              <SelectItem value={Level.Beginner}>
+                                Beginner
+                              </SelectItem>
+                              <SelectItem value={Level.Intermediate}>
+                                Intermediate
+                              </SelectItem>
+                              <SelectItem value={Level.Advanced}>
+                                Advanced
+                              </SelectItem>
+                              <SelectItem value={Level.Essential}>
+                                Essential
+                              </SelectItem>
+                            </SelectContent>
+                          </Select>
+
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <FormField
+                    control={form.control}
+                    name="description"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Description *</FormLabel>
+                        <FormControl>
+                          <Textarea
+                            rows={3}
+                            placeholder="Brief description of what this training covers"
+                            {...field}
+                          />
+                        </FormControl>
+
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <FormField
+                    control={form.control}
+                    name="content"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-col gap-2">
+                        <FormLabel>Training Content *</FormLabel>
+                        <FormControl>
+                          <ReactQuill theme="snow" {...field} />
+                        </FormControl>
+
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                <div className="flex space-x-4">
+                  <Button
+                    type="submit"
+                    className="flex-1 bg-purple-600 hover:bg-purple-700"
+                    disabled={isSubmitting}>
+                    {module
+                      ? isSubmitting
+                        ? "updating..."
+                        : "Update Training Module"
+                      : isSubmitting
                         ? "Creating..."
                         : "Create Training Module"}
-                    </Button>
-                    <Button type="button" variant="outline" asChild>
-                      <Link to="/training">Cancel</Link>
-                    </Button>
-                  </div>
-                </form>
-              </Form>
-            </CardContent>
-          </Card>
-        </div>
+                  </Button>
+                  <Button type="button" variant="outline" asChild>
+                    <Link to="/training">Cancel</Link>
+                  </Button>
+                </div>
+              </form>
+            </Form>
+          </CardContent>
+        </Card>
+      </div>
       </div>
     </div>
+
   );
 }
