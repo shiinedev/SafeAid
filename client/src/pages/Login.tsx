@@ -24,13 +24,13 @@ import { useNavigate } from "react-router";
 import { Shield } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
 import api from "@/lib/apiClient";
-import { useAuthStore } from "@/lib/store/authStore";
+import { Role, useAuthStore } from "@/lib/store/authStore";
 import { errorExtractMessage } from "@/utils/errorExtract";
 
 interface User {
   _id: string;
   email: string;
-  role: 'admin' | 'field_agent' | 'medical' | 'trainer';
+  role: Role;
   username:string | "";
   status:"active"|"deActive"
   password:""

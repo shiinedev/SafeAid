@@ -1,15 +1,16 @@
 import { useParams, useNavigate ,Link} from "react-router"
-import { Role, useAuth } from "@/hooks/useAuth"
+
 import { useTraining } from "@/hooks/useTraining"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { BookOpen, ArrowLeft, Clock, User, Calendar, Edit } from "lucide-react"
+import { Role, useAuthStore } from "@/lib/store/authStore"
 
 
 const  TrainingDetails = () => {
   const { id } = useParams()
-  const { user } = useAuth()
+  const { user } = useAuthStore()
   const { getModule } = useTraining()
   const navigate = useNavigate()
 

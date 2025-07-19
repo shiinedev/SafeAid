@@ -1,7 +1,7 @@
 import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'
 import { useState } from "react"
-import { useAuth } from "@/hooks/useAuth"
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -11,9 +11,10 @@ import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Settings, Shield, AlertTriangle, Trash2, Download, User, Lock, Database } from "lucide-react"
 import { useBeneficiaries } from "@/hooks/useBeneficiaries"
 import { useNavigate, Link } from "react-router"
+import { useAuthStore } from '@/lib/store/authStore'
 
 export default function SettingsPage() {
-  const { user, logout } = useAuth()
+  const { user, clearAuth } = useAuthStore()
   const navigate = useNavigate()
   const [showPanicConfirm, setShowPanicConfirm] = useState(false)
   const [settings, setSettings] = useState({
@@ -48,7 +49,7 @@ export default function SettingsPage() {
         }
 
         // Logout and redirect
-        logout()
+        clearAuth()
         navigate("/")
 
         alert("Panic wipe completed. All local data has been destroyed.")

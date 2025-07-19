@@ -1,7 +1,8 @@
 import { ReactNode } from "react"
 import { LoaderCircle } from 'lucide-react';
 import { Navigate, useLocation } from 'react-router';
-import { useAuth } from '../hooks/useAuth';
+import { useAuthStore } from "@/lib/store/authStore";
+
 
 
 interface MyComponentProps {
@@ -9,17 +10,11 @@ interface MyComponentProps {
 }
 const ProtectedRoute = ({children}:MyComponentProps) => {
 
-    const {user ,loading} = useAuth();
+    const {user} = useAuthStore();
 
     const location = useLocation();
 
 
-    if(loading){
-       return( <div className='h-screen flex justify-center items-center'>
-            <LoaderCircle  className='animate-spin'/>
-        </div>
-       )
-    }
 
     if(!user){
         return <Navigate to="/login" state={{from:location}} replace  />

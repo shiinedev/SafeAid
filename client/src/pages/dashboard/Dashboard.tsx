@@ -1,5 +1,4 @@
 
-import { Role, useAuth } from "@/hooks/useAuth"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -8,10 +7,11 @@ import {Link} from "react-router"
 import { useNavigate } from "react-router"
 import { useBeneficiaries } from "@/hooks/useBeneficiaries"
 import { useOfflineStatus } from "@/hooks/useOfflineStatus"
+import { Role, useAuthStore } from "@/lib/store/authStore"
 
 
 const  Dashboard = () =>{
-  const { user, logout } = useAuth()
+  const { user, clearAuth } = useAuthStore()
   const { beneficiaries } = useBeneficiaries()
   const isOffline = useOfflineStatus()
   const navigate = useNavigate()
@@ -122,7 +122,7 @@ const  Dashboard = () =>{
                   Settings
                 </Link>
               </Button>
-              <Button  onClick={logout}>
+              <Button  onClick={clearAuth}>
                 Logout
               </Button>
             </div>

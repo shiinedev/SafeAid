@@ -1,12 +1,19 @@
+
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
+export enum Role {
+  Admin = "admin",
+  Field_agent = "field_agent",
+  Medical_staff = "medical",
+  Trainer = "trainer"
+}
 // Define the shape of your user object (customize as needed)
 interface User {
   _id: string;
   username: string;
   email: string;
-  role: 'admin' | 'field_agent' | 'medical' | 'trainer';
+  role: Role;
   status:"active" | "deActive"
 }
 

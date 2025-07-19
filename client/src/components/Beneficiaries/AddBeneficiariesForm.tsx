@@ -1,4 +1,4 @@
-import { Role, useAuth } from "@/hooks/useAuth"
+
 import { useBeneficiaries } from "@/hooks/useBeneficiaries"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -13,11 +13,12 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Beneficiary, BeneficiarySchema } from "@/schemas/schemas"
 import { useParams } from "react-router"
 import { useEffect } from "react"
+import { Role, useAuthStore } from "@/lib/store/authStore"
 
 export default function AddBeneficiariesForm() {
 
 
-  const { user } = useAuth()
+  const { user } = useAuthStore()
   const { addBeneficiary, getBeneficiary, updateBeneficiary } = useBeneficiaries()
   const navigate = useNavigate();
 

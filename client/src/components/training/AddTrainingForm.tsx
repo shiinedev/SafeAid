@@ -1,4 +1,3 @@
-import { Role, useAuth } from "../../hooks/useAuth";
 import { Categories, Level, useTraining } from "../../hooks/useTraining";
 import {
   Card,
@@ -34,10 +33,11 @@ import {
 import ReactQuill from "react-quill";
 import { useParams } from "react-router";
 import { useEffect } from "react";
+import { Role, useAuthStore } from "@/lib/store/authStore";
 
 export default function AddTrainingForm() {
   const { id } = useParams();
-  const { user } = useAuth();
+  const { user } = useAuthStore();
   const { addModule, getModule, updateModule } = useTraining();
 
   const navigate = useNavigate();

@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { Role, useAuth } from "@/hooks/useAuth"
 import { useBeneficiaries } from "@/hooks/useBeneficiaries"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -7,10 +6,11 @@ import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { Users, Search, UserPlus, Eye, Edit, Shield, Calendar, MapPin, Trash2 } from "lucide-react"
 import { Link, useNavigate } from "react-router"
+import { Role, useAuthStore } from "@/lib/store/authStore"
 
 
 export default function BeneficiariesPage() {
-  const { user } = useAuth()
+  const { user } = useAuthStore()
   const { beneficiaries, deleteBeneficiary } = useBeneficiaries()
   const [searchTerm, setSearchTerm] = useState("")
   const navigate = useNavigate()

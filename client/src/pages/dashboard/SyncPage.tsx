@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { useAuth } from "@/hooks/useAuth"
 import { useBeneficiaries } from "@/hooks/useBeneficiaries"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -9,10 +8,11 @@ import { Database, Upload, Download, Shield, AlertTriangle, CheckCircle, Clock }
 import { Link, useNavigate } from "react-router"
 import jsPDF from "jspdf"
 import autoTable from "jspdf-autotable"
+import { useAuthStore } from "@/lib/store/authStore"
 
 
 export default function SyncPage() {
-  const { user } = useAuth()
+  const { user } = useAuthStore()
   const { beneficiaries } = useBeneficiaries()
   const navigate = useNavigate()
   const [syncStatus, setSyncStatus] = useState<"idle" | "syncing" | "success" | "error">("idle")

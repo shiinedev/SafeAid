@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { useAuth } from "@/hooks/useAuth"
 import { useUsers } from "@/hooks/useUsers"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -7,10 +6,11 @@ import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { Users, Search, UserPlus, Trash2, Shield, Calendar } from "lucide-react"
 import {Link, useNavigate} from "react-router"
+import { useAuthStore } from "@/lib/store/authStore"
 
 
 export default function UsersPage() {
-  const { user } = useAuth()
+  const { user } = useAuthStore()
   const { users, updateUser, deleteUser } = useUsers()
   const [searchTerm, setSearchTerm] = useState("")
   const router = useNavigate()

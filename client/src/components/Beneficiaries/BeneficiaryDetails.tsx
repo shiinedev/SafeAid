@@ -4,11 +4,12 @@ import { Button } from "@/components/ui/button"
 import { User, ArrowLeft, Calendar, Edit, Phone, MapPin, AlertTriangle, FileText, UserCheck } from "lucide-react"
 import { useBeneficiaries } from "@/hooks/useBeneficiaries"
 import { useEffect } from "react"
-import { Role, useAuth } from "@/hooks/useAuth"
+import { Role, useAuthStore } from "@/lib/store/authStore"
+
 
 export default function BeneficiaryDetailsPage() {
   const { id } = useParams()
-  const { user } = useAuth()
+  const { user } = useAuthStore()
   const { getBeneficiary, loading: beneficiariesLoading } = useBeneficiaries()
   const navigate = useNavigate()
 

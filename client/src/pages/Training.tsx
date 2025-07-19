@@ -1,6 +1,6 @@
 
 import { useState } from "react"
-import { useAuth } from "../hooks/useAuth"
+
 import { Categories, useTraining } from "../hooks/useTraining"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card"
 import { Button } from "../components/ui/button"
@@ -8,9 +8,10 @@ import { Badge } from "../components/ui/badge"
 import { Input } from "../components/ui/input"
 import { BookOpen, Heart, Shield, Users, Search, Play, Download, Clock, Plus, Edit, ArrowLeft } from "lucide-react"
 import {Link} from "react-router"
+import { useAuthStore } from "@/lib/store/authStore"
 
 export default function Training() {
-  const { user } = useAuth()
+  const { user } = useAuthStore()
   const { modules, loading } = useTraining()
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("All")

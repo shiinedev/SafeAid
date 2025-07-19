@@ -1,4 +1,5 @@
-import { Role } from "@/hooks/useAuth";
+
+import { Role } from "@/lib/store/authStore";
 import z from "zod";
 
 
@@ -42,7 +43,7 @@ export type Beneficiary = z.infer<typeof BeneficiarySchema>;
 export const userSchema = z
   .object({
     email: z.email("email is not valid"),
-    name: z.string().min(1, "name is required"),
+    username: z.string().min(1, "name is required"),
     role: z.nativeEnum(Role),
     password: z.string().min(6, "Password must be at least 6 characters"),
     confirmPassword: z.string("confirm your password"),
