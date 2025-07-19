@@ -7,6 +7,8 @@ export const loginSchema = z.object({
   password: z.string().min(1, "please enter your password"),
 });
 
+export type login= z.infer<typeof loginSchema>;
+
 enum Level {
   Beginner = "Beginner",
   Intermediate = "Intermediate",
@@ -51,3 +53,8 @@ export const userSchema = z
   });
 
 export type User = z.infer<typeof userSchema>;
+
+
+
+
+

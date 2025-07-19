@@ -4,9 +4,11 @@ import { loginUser, registerUser } from '../controllers/authController';
 import { userSchemaValidation } from '../validations/userSchemaValidation';
 import { validateSchema } from '../middlewares/validateSchemas';
 import { checkRole } from '../middlewares/checkRole';
+import { verifyToken } from '../middlewares/verifyToken';
 const router = express.Router();
 
-router.post('/register',validateSchema(userSchemaValidation),checkRole("admin"), registerUser);
+
+router.post('/register',verifyToken,validateSchema(userSchemaValidation),checkRole("admin"), registerUser);
 router.post('/login', loginUser);
 
 export default router;

@@ -11,14 +11,21 @@ export const registerUser = async (
 ) => {
   const { username, email, password, role, status } = req.body;
   try {
+
+    const exists = await User.findOne({ email });
+    if(exists){
+      return res.status(401).json({message:"user al ready exists"})
+    }
+    
     const hashed = await bcrypt.hash(password, 10);
+    const createdBy = (req as any).userId
     const user = await User.create({
       username,
       email,
       password: hashed,
       role,
       status,
-      createdBy: (req as any).userId,
+      createdBy,
     });
     res.status(201).json({
       username: user.username,
@@ -45,13 +52,15 @@ export const loginUser = async (
 
     const user = await User.findOne({ email });
 
-    if (!user) return res.status(404).json({ message: "User not found" });
+    if (!user) return res.status(404).json({ message: "Invalid credentials" });
     const valid = await bcrypt.compare(password, user.password);
 
     if (!valid) return res.status(403).json({ message: "Invalid credentials" });
 
+    user.password = ""
+
     const token = generateToken(user._id)
-    res.json({ token });
+    res.json({user, token });
   } catch (error) {
     next(error);
   }
