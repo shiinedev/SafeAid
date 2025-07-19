@@ -21,3 +21,9 @@ export const updateBeneficiary = async (req: Request, res: Response) => {
   const updated = await Beneficiary.findByIdAndUpdate(id, req.body, { new: true });
   res.json(updated);
 };
+
+export const deleteBeneficiary = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const deleted = await Beneficiary.findByIdAndDelete(id);
+  res.json({ message: 'Deleted' });
+};
