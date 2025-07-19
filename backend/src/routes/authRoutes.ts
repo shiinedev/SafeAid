@@ -11,4 +11,5 @@ const router = express.Router();
 router.post('/register',verifyToken,validateSchema(userSchemaValidation),checkRole("admin"), registerUser);
 router.post('/login', loginUser);
 
+
 export default router;

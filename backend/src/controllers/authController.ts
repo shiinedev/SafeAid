@@ -9,7 +9,7 @@ export const registerUser = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { username, email, password, role, status } = req.body;
+  const { username, email, password, role, isActive } = req.body;
   try {
 
     const exists = await User.findOne({ email });
@@ -24,15 +24,17 @@ export const registerUser = async (
       email,
       password: hashed,
       role,
-      status,
+      isActive,
       createdBy,
     });
+
+
     res.status(201).json({
       username: user.username,
       email: user.email,
       role: user.role,
-      createdBy: user.createdBy,
-      status: user.status,
+      createdBy:user.createdBy,
+      isActive: user.isActive,
     });
   } catch (error) {
     next(error);
@@ -57,6 +59,10 @@ export const loginUser = async (
 
     if (!valid) return res.status(403).json({ message: "Invalid credentials" });
 
+    if(!user.isActive){
+      return res.status(403).json({ message: "User is not active" });
+    }
+
     user.password = ""
 
     const token = generateToken(user._id)
@@ -65,3 +71,5 @@ export const loginUser = async (
     next(error);
   }
 };
+
+

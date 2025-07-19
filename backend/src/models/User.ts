@@ -10,12 +10,11 @@ const userSchema = new mongoose.Schema({
     enum: ['admin', 'field_agent', 'medical', 'trainer'], 
     default: 'field_agent'
    },
-  status:{
-    type: String, 
-    enum: ['active', 'deActive'],
-    default:"active"
+  isActive:{
+    type: Boolean, 
+    default:true
   },
   createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'user' }
-});
+},{timestamps:true});
 
 export default mongoose.model('User', userSchema);

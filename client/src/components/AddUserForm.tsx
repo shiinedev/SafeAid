@@ -26,6 +26,8 @@ interface RegisterInput {
 
 
 export default function AddUsersForm() {
+
+  const [isSuccess,setIsSuccess] = useState(false)
   const { user } = useAuthStore()
 
 
@@ -80,7 +82,6 @@ export default function AddUsersForm() {
     onSuccess:(data) =>{
       console.log("user creation successfully",data);
       form.reset();
-      navigate("/login")
     },
     onError:(err) =>{
       console.log("error",errorExtractMessage(err));
@@ -110,16 +111,18 @@ export default function AddUsersForm() {
     
   const onSubmit:SubmitHandler<User> =async (data) => {
     const { confirmPassword, ...dataToSend } = data;
-    console.log(dataToSend);
-
+ 
      try {
       
-      registerMutation.mutate(dataToSend)
+      registerMutation.mutate(dataToSend);
+      setIsSuccess(true)
       setTimeout(() => {
-        navigate("/users")
-      }, 5000) // Give more time to copy credentials
+        navigate("/users");
+        setIsSuccess(false)
+      }, 2000) // Give more time to copy credentials
     } catch (error) {
-      console.error("Error creating user:", error)
+      console.error("Error creating user:", error);
+ 
     }
     
 
@@ -127,7 +130,7 @@ export default function AddUsersForm() {
   }
 
   
-  if (isSubmitSuccessful) {
+  if (isSuccess) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <Card className="max-w-lg">
