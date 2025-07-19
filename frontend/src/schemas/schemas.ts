@@ -53,8 +53,3 @@ export const userSchema = z
   });
 
 export type User = z.infer<typeof userSchema>;
-
-
-
-
-

@@ -6,5 +6,5 @@ export const userSchemaValidation = z.object({
     email:z.email("email is not valid"),
     password:z.string().min(6,"password must be at least 6 characters"),
     role:z.enum(['admin', 'field_agent', 'medical', 'trainer']),
-    status:z.enum(["active","deActive"]).default("active")
+    status:z.enum(["active","inactive"]).default("active")
 })

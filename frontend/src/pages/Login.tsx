@@ -32,7 +32,7 @@ interface User {
   email: string;
   role: 'admin' | 'field_agent' | 'medical' | 'trainer';
   username:string | "";
-  status:"active"|"deActive"
+  status:"active"|"inactive"
   password:""
 }
 

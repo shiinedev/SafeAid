@@ -7,7 +7,7 @@ import router from './routes.tsx'
 import { AuthProvider } from './hooks/useAuth.tsx'
 import { TrainingProvider } from './hooks/useTraining.tsx'
 import { BeneficiariesProvider } from './hooks/useBeneficiaries.tsx'
-import { UsersProvider } from './hooks/useUsers'
+import { UsersProvider } from './hooks/useUsers.tsx'
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 

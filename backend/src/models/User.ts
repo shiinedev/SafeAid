@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
    },
   status:{
     type: String, 
-    enum: ['active', 'deActive'],
+    enum: ['active', 'inactive'],
     default:"active"
   },
   createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'user' }

@@ -7,7 +7,7 @@ interface User {
   username: string;
   email: string;
   role: 'admin' | 'field_agent' | 'medical' | 'trainer';
-  status:"active" | "deActive"
+  status:"active" | "inactive"
 }
 
 // Define the shape of the auth store
