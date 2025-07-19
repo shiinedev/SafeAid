@@ -1,5 +1,4 @@
 import { ReactNode } from "react"
-import { LoaderCircle } from 'lucide-react';
 import { Navigate, useLocation } from 'react-router';
 import { useAuthStore } from "@/lib/store/authStore";
 
