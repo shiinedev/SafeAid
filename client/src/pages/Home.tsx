@@ -33,7 +33,7 @@ import { Link } from "react-router"
           <Card className="border-orange-200 hover:shadow-lg transition-shadow">
             <CardHeader>
               <Users className="h-12 w-12 text-orange-600 mb-4" />
-              <CardTitle>Offline-First</CardTitle>
+              <CardTitle>Online-First</CardTitle>
               <CardDescription>
               Works online with secure data storage using MongoDB. Data access and sync require an internet connection.
               </CardDescription>
