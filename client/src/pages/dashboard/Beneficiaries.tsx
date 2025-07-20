@@ -44,7 +44,7 @@ export default function BeneficiariesPage() {
   const filteredBeneficiaries = beneficiaries.filter(
     (beneficiary) =>
       beneficiary.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      beneficiary._id.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      beneficiary.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
       beneficiary.location.toLowerCase().includes(searchTerm.toLowerCase()),
   )
 
