@@ -86,7 +86,7 @@ export default function BeneficiaryDetailsPage() {
             </Button>
             {canEdit && (
               <Button variant="outline" asChild>
-                <Link to={`/beneficiaries/edit/${beneficiary.id}`}>
+                <Link to={`/beneficiaries/${beneficiary.id}/edit`}>
                   <Edit className="h-4 w-4 mr-2" />
                   Edit Beneficiary
                 </Link>
@@ -102,7 +102,7 @@ export default function BeneficiaryDetailsPage() {
             <CardContent>
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-4">
-                  <div className="flex flex-col items-center space-x-3">
+                  <div className="flex items-center space-x-3">
                     <User className="h-5 w-5 text-gray-500" />
                     <div>
                       <p className="text-sm font-medium text-gray-900">Full Name</p>
