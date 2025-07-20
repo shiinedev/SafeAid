@@ -3,7 +3,11 @@ import type { Beneficiary } from '@/schemas/schemas';
 
 export const beneficiaryService = {
   async getAllBeneficiaries() {
+
     const response = await api.get('/beneficiaries');
+    console.log('loadinig beneficiaries');
+    console.log(response.data );
+
     return response.data;
   },
 
