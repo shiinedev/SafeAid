@@ -109,7 +109,9 @@ const  Dashboard = () =>{
             <div className="flex items-center space-x-2">
               <Shield className="sm:h-8 sm:w-8 text-red-600" />
               <div>
-                <h1 className="sm:text-2xl font-bold text-gray-900">SafeAid Dashboard</h1>
+               <Link to="/"> 
+               <h1 className="sm:text-2xl text-md font-bold text-gray-900">SafeAid Dashboard</h1>
+               </Link>
                 <div className="flex items-center space-x-2">
                   <Badge className={getRoleColor(user.role)}>{user.role.replace("_", " ").toUpperCase()}</Badge>
                   <Badge variant={isOffline ? "destructive" : "secondary"}>{isOffline ? "OFFLINE" : "ONLINE"}</Badge>
