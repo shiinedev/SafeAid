@@ -1,18 +1,6 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from "react"
-import { encryptData, decryptData } from "@/lib/encryption"
-
-interface Beneficiary {
-  id: string
-  name: string
-  age: number
-  contact: string
-  emergencyContact: string
-  location: string
-  medicalInfo?: string
-  notes?: string
-  registeredBy: string
-  registeredAt: string
-}
+import { beneficiaryService } from "@/lib/services/beneficiaryService"
+import type { Beneficiary } from "@/schemas/schemas"
 
 interface BeneficiariesContextType {
   beneficiaries: Beneficiary[]
@@ -35,11 +23,9 @@ export function BeneficiariesProvider({ children }: { children: ReactNode }) {
 
   const loadBeneficiaries = async () => {
     try {
-      const encryptedData = localStorage.getItem("safeaid_beneficiaries")
-      if (encryptedData) {
-        const decryptedData = await decryptData(encryptedData)
-        setBeneficiaries(JSON.parse(decryptedData))
-      }
+      setLoading(true)
+      const data = await beneficiaryService.getAllBeneficiaries()
+      setBeneficiaries(data)
     } catch (error) {
       console.error("Error loading beneficiaries:", error)
       setBeneficiaries([])
@@ -48,42 +34,47 @@ export function BeneficiariesProvider({ children }: { children: ReactNode }) {
     }
   }
 
-  const saveBeneficiaries = async (data: Beneficiary[]) => {
+  const addBeneficiary = async (beneficiaryData: Omit<Beneficiary, "_id">) => {
     try {
-      const encryptedData = await encryptData(JSON.stringify(data))
-      localStorage.setItem("safeaid_beneficiaries", encryptedData)
+      const newBeneficiary = await beneficiaryService.createBeneficiary(beneficiaryData)
+      setBeneficiaries(prev => [...prev, newBeneficiary])
     } catch (error) {
-      console.error("Error saving beneficiaries:", error)
+      console.error("Error adding beneficiary:", error)
+      throw error
     }
   }
 
-  const addBeneficiary = async (beneficiaryData: Omit<Beneficiary, "id">) => {
-    const newBeneficiary: Beneficiary = {
-      ...beneficiaryData,
-      id: `ben_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+  const updateBeneficiary = async (_id: string, updates: Partial<Beneficiary>) => {
+    try {
+      const updatedBeneficiary = await beneficiaryService.updateBeneficiary(_id, updates)
+      setBeneficiaries(prev => 
+        prev.map(beneficiary => 
+          beneficiary._id === _id ? updatedBeneficiary : beneficiary
+        )
+      )
+    } catch (error) {
+      console.error("Error updating beneficiary:", error)
+      throw error
     }
-
-    const updatedBeneficiaries = [...beneficiaries, newBeneficiary]
-    setBeneficiaries(updatedBeneficiaries)
-    await saveBeneficiaries(updatedBeneficiaries)
   }
 
-  const updateBeneficiary = async (id: string, updates: Partial<Beneficiary>) => {
-    const updatedBeneficiaries = beneficiaries.map((beneficiary) =>
-      beneficiary.id === id ? { ...beneficiary, ...updates } : beneficiary,
-    )
-    setBeneficiaries(updatedBeneficiaries)
-    await saveBeneficiaries(updatedBeneficiaries)
+  const deleteBeneficiary = async (_id: string) => {
+    try {
+      await beneficiaryService.deleteBeneficiary(_id)
+      setBeneficiaries(prev => prev.filter(beneficiary => beneficiary._id !== _id))
+    } catch (error) {
+      console.error("Error deleting beneficiary:", error)
+      throw error
+    }
   }
 
-  const deleteBeneficiary = async (id: string) => {
-    const updatedBeneficiaries = beneficiaries.filter((beneficiary) => beneficiary.id !== id)
-    setBeneficiaries(updatedBeneficiaries)
-    await saveBeneficiaries(updatedBeneficiaries)
-  }
-
-  const getBeneficiary = (id: string) => {
-    return beneficiaries.find((beneficiary) => beneficiary.id === id)
+  const getBeneficiary = async (_id: string) => {
+    try {
+      return await beneficiaryService.getBeneficiaryById(_id)
+    } catch (error) {
+      console.error("Error getting beneficiary:", error)
+      throw error
+    }
   }
 
   return (

@@ -29,6 +29,7 @@ export const trainingSchema = z.object({
 export type TrainingFormValues = z.infer<typeof trainingSchema>;
 
 export const BeneficiarySchema = z.object({
+  id: z.string().optional(), // MongoDB id
   name: z.string().min(1, "name is required"),
   age: z.coerce.number().min(1, "age is must be greater than 0"),
   contact: z.string().min(1, "contact is required"),
@@ -36,6 +37,9 @@ export const BeneficiarySchema = z.object({
   location: z.string().min(1, "location is required"),
   medicalInfo: z.string().optional(),
   notes: z.string().optional(),
+  createdBy: z.string().optional(), // Reference to User
+  createdAt: z.string().optional(),
+  updatedAt: z.string().optional(),
 });
 
 export type Beneficiary = z.infer<typeof BeneficiarySchema>;
