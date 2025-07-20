@@ -1,4 +1,4 @@
-import { Shield, Users, Heart, BookOpen } from "lucide-react"
+import { Shield, Database, Heart, BookOpen } from "lucide-react"
 import { Card ,CardDescription, CardHeader, CardTitle} from "../components/ui/card"
 import { Button } from "../components/ui/button"
 import { Link } from "react-router"
@@ -32,10 +32,10 @@ import { Link } from "react-router"
 
           <Card className="border-orange-200 hover:shadow-lg transition-shadow">
             <CardHeader>
-              <Users className="h-12 w-12 text-orange-600 mb-4" />
-              <CardTitle>Online-First</CardTitle>
+              <Database className="h-12 w-12 text-orange-600 mb-4" />
+              <CardTitle>Resilient Data Storage</CardTitle>
               <CardDescription>
-              Works online with secure data storage using MongoDB. Data access and sync require an internet connection.
+                Physical servers or paper records can be destroyed at anytime. Cloud-sync ensures data is always accessible.
               </CardDescription>
             </CardHeader>
           </Card>
@@ -45,8 +45,7 @@ import { Link } from "react-router"
               <Heart className="h-12 w-12 text-red-600 mb-4" />
               <CardTitle>Humanitarian Focus</CardTitle>
               <CardDescription>
-                Built specifically for NGOs and humanitarian organisations working in surveillance-heavy or
-                connectivity-denied zones.
+                Built specifically for NGOs and humanitarian organisations working in surveillance-heavy zones.
               </CardDescription>
             </CardHeader>
           </Card>
