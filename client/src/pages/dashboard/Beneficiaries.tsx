@@ -6,8 +6,6 @@ import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { Users, Search, UserPlus, Eye, Edit, Shield, Calendar, MapPin, Trash2 } from "lucide-react"
 import { Link, useNavigate } from "react-router"
-import { useQuery } from "@tanstack/react-query"
-import api from "@/lib/apiClient"
 import { Role, useAuth } from "@/hooks/useAuth"
 
 
