@@ -8,10 +8,11 @@ import { Badge } from "../components/ui/badge"
 import { Input } from "../components/ui/input"
 import { BookOpen, Heart, Shield, Users, Search, Play, Download, Clock, Plus, Edit, ArrowLeft } from "lucide-react"
 import {Link} from "react-router"
-import { useAuthStore } from "@/lib/store/authStore"
+import { useAuth } from "@/hooks/useAuth"
+
 
 export default function Training() {
-  const { user } = useAuthStore()
+  const { user } = useAuth()
   const { modules, loading } = useTraining()
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("All")

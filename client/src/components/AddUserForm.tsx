@@ -1,4 +1,6 @@
 import { useState } from "react"
+import { Role, useAuth } from "@/hooks/useAuth"
+import { useUsers } from "@/hooks/useUsers"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -11,32 +13,16 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { User, userSchema } from "@/schemas/schemas"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select"
-import { Role, useAuthStore } from "@/lib/store/authStore"
-import { useMutation } from "@tanstack/react-query"
-import api from "@/lib/apiClient"
-import { errorExtractMessage } from "@/utils/errorExtract"
-
-
-interface RegisterInput {
-  email: string;
-  username: string;
-  password: string;
-  role: Role;
-}
-
 
 export default function AddUsersForm() {
-
-  const [isSuccess,setIsSuccess] = useState(false)
-  const { user } = useAuthStore()
-
-
+  const { user } = useAuth()
+  const { addUser } = useUsers()
   const navigate = useNavigate()
 
   const form = useForm({
     resolver: zodResolver(userSchema),
     defaultValues: {
-      username: "",
+      name: "",
       email: "",
       role: Role.Admin,
       password: "",
@@ -44,7 +30,7 @@ export default function AddUsersForm() {
     }
   })
 
- const {isSubmitting} = form.formState;
+ const {isSubmitSuccessful,isSubmitting} = form.formState;
   
   const [showPassword, setShowPassword] = useState(false)
 
@@ -55,7 +41,7 @@ export default function AddUsersForm() {
     return null
   }
 
-  if (user.role !== Role.Admin) {
+  if (user.role !== "admin") {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <Card className="max-w-md">
@@ -72,23 +58,6 @@ export default function AddUsersForm() {
       </div>
     )
   }
-
-
-    const registerMutation = useMutation<any,unknown,RegisterInput>({
-    mutationFn: async (data) =>{
-      const response = await api.post("/auth/register",data);
-      return response.data;
-    },
-    onSuccess:(data) =>{
-      console.log("user creation successfully",data);
-      form.reset();
-    },
-    onError:(err) =>{
-      console.log("error",errorExtractMessage(err));
-      
-    }
-  })
-
 
   const generateSecurePassword = () => {
     const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*"
@@ -111,18 +80,20 @@ export default function AddUsersForm() {
     
   const onSubmit:SubmitHandler<User> =async (data) => {
     const { confirmPassword, ...dataToSend } = data;
- 
+    console.log(dataToSend);
+    console.log(data);
+
      try {
-      
-      registerMutation.mutate(dataToSend);
-      setIsSuccess(true)
+      await addUser({
+        ...dataToSend,
+        isActive: true,
+        createdBy: user.email,
+      })
       setTimeout(() => {
-        navigate("/users");
-        setIsSuccess(false)
-      }, 2000) // Give more time to copy credentials
+        navigate("/users")
+      }, 5000) // Give more time to copy credentials
     } catch (error) {
-      console.error("Error creating user:", error);
- 
+      console.error("Error creating user:", error)
     }
     
 
@@ -130,7 +101,7 @@ export default function AddUsersForm() {
   }
 
   
-  if (isSuccess) {
+  if (isSubmitSuccessful) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <Card className="max-w-lg">
@@ -235,7 +206,7 @@ export default function AddUsersForm() {
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <FormField
-                        name="username"
+                        name="name"
                         control={form.control}
                         render={({ field }) => (
                           <FormItem>

@@ -7,11 +7,12 @@ import {Link} from "react-router"
 import { useNavigate } from "react-router"
 import { useBeneficiaries } from "@/hooks/useBeneficiaries"
 import { useOfflineStatus } from "@/hooks/useOfflineStatus"
-import { Role, useAuthStore } from "@/lib/store/authStore"
+import { Role, useAuth } from "@/hooks/useAuth"
+
 
 
 const  Dashboard = () =>{
-  const { user, clearAuth } = useAuthStore()
+  const { user, logout } = useAuth()
   const { beneficiaries } = useBeneficiaries()
   const isOffline = useOfflineStatus()
   const navigate = useNavigate()
@@ -108,7 +109,9 @@ const  Dashboard = () =>{
             <div className="flex items-center space-x-2">
               <Shield className="sm:h-8 sm:w-8 text-red-600" />
               <div>
-                <h1 className="sm:text-2xl font-bold text-gray-900">SafeAid Dashboard</h1>
+               <Link to="/"> 
+               <h1 className="sm:text-2xl text-md font-bold text-gray-900">SafeAid Dashboard</h1>
+               </Link>
                 <div className="flex items-center space-x-2">
                   <Badge className={getRoleColor(user.role)}>{user.role.replace("_", " ").toUpperCase()}</Badge>
                   <Badge variant={isOffline ? "destructive" : "secondary"}>{isOffline ? "OFFLINE" : "ONLINE"}</Badge>
@@ -122,7 +125,7 @@ const  Dashboard = () =>{
                   Settings
                 </Link>
               </Button>
-              <Button  onClick={clearAuth}>
+              <Button  onClick={logout}>
                 Logout
               </Button>
             </div>

@@ -11,10 +11,11 @@ import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Settings, Shield, AlertTriangle, Trash2, Download, User, Lock, Database } from "lucide-react"
 import { useBeneficiaries } from "@/hooks/useBeneficiaries"
 import { useNavigate, Link } from "react-router"
-import { useAuthStore } from '@/lib/store/authStore'
+
+import { useAuth } from '@/hooks/useAuth'
 
 export default function SettingsPage() {
-  const { user, clearAuth } = useAuthStore()
+  const { user, logout } = useAuth()
   const navigate = useNavigate()
   const [showPanicConfirm, setShowPanicConfirm] = useState(false)
   const [settings, setSettings] = useState({
@@ -49,7 +50,7 @@ export default function SettingsPage() {
         }
 
         // Logout and redirect
-        clearAuth()
+        logout()
         navigate("/")
 
         alert("Panic wipe completed. All local data has been destroyed.")

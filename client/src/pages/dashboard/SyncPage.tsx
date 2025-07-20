@@ -8,11 +8,11 @@ import { Database, Upload, Download, Shield, AlertTriangle, CheckCircle, Clock }
 import { Link, useNavigate } from "react-router"
 import jsPDF from "jspdf"
 import autoTable from "jspdf-autotable"
-import { useAuthStore } from "@/lib/store/authStore"
+import { useAuth } from "@/hooks/useAuth"
 
 
 export default function SyncPage() {
-  const { user } = useAuthStore()
+  const { user } = useAuth()
   const { beneficiaries } = useBeneficiaries()
   const navigate = useNavigate()
   const [syncStatus, setSyncStatus] = useState<"idle" | "syncing" | "success" | "error">("idle")

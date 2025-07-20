@@ -33,11 +33,12 @@ import {
 import ReactQuill from "react-quill";
 import { useParams } from "react-router";
 import { useEffect } from "react";
-import { Role, useAuthStore } from "@/lib/store/authStore";
+import { Role, useAuth } from "@/hooks/useAuth";
+
 
 export default function AddTrainingForm() {
   const { id } = useParams();
-  const { user } = useAuthStore();
+  const { user } = useAuth();
   const { addModule, getModule, updateModule } = useTraining();
 
   const navigate = useNavigate();
