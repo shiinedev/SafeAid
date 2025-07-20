@@ -10,13 +10,14 @@ import trainingRoutes from './routes/trainingRoutes';
 import { errorHandler } from './middlewares/errorHandler';
 import cors from 'cors';
 import { notFound } from './middlewares/notFound';
+import { applySecurityMiddleware } from './middlewares/security';
 
 dotenv.config();
 const app = express();
-app.use(cors());
+// app.use(cors()); alredy imbelemented in security middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+applySecurityMiddleware(app);
 app.use('/api/auth', authRoutes);
 app.use('/api/beneficiaries', beneficiaryRoutes);
 app.use('/api/training', trainingRoutes);
