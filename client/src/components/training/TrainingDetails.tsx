@@ -5,12 +5,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { BookOpen, ArrowLeft, Clock, User, Calendar, Edit } from "lucide-react"
-import { Role, useAuthStore } from "@/lib/store/authStore"
+import { Role, useAuth } from "@/hooks/useAuth"
+
 
 
 const  TrainingDetails = () => {
   const { id } = useParams()
-  const { user } = useAuthStore()
+  const { user } = useAuth()
   const { getModule } = useTraining()
   const navigate = useNavigate()
 

@@ -1,89 +1,42 @@
-import { useState } from "react";
-import { Button } from "../components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "../components/ui/form";
-import { Input } from "../components/ui/input";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { SubmitHandler, useForm } from "react-hook-form";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "../components/ui/card";
-import { login, loginSchema } from "../schemas/schemas";
 
-import { useNavigate } from "react-router";
-import { Shield } from "lucide-react";
-import { useMutation } from "@tanstack/react-query";
-import api from "@/lib/apiClient";
-import { Role, useAuthStore } from "@/lib/store/authStore";
-import { errorExtractMessage } from "@/utils/errorExtract";
+import type React from "react"
+import { useState } from "react"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Alert, AlertDescription } from "@/components/ui/alert"
+import { Shield, Eye, EyeOff } from "lucide-react"
+import { useAuth } from "@/hooks/useAuth"
+import { useNavigate } from "react-router"
 
-interface User {
-  _id: string;
-  email: string;
-  role: Role;
-  username:string | "";
-  status:"active"|"deActive"
-  password:""
-}
+export default function LoginPage() {
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [showPassword, setShowPassword] = useState(false)
+  const [error, setError] = useState("")
+  const [loading, setLoading] = useState(false)
+  const { login } = useAuth()
+  const navigate = useNavigate()
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setError("")
+    setLoading(true)
 
-const Login = () => {
-  const [error, setError] = useState<string | null>(null);
-
-  const { setAuth } = useAuthStore();
-
-  const form = useForm({
-    resolver: zodResolver(loginSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-    },
-  });
-
-
-
-  const navigate = useNavigate();
-
-
-  const loginMutation = useMutation<{ token: string; user: User }, unknown, login>({
-    mutationFn: async (data) => {
-      const response = await api.post("/auth/login", data);
-      return response.data;
-    },
-    onSuccess: (data) => {
-      console.log("user Login successfully", data);
-      if (data.token) {
-        const { token, user } = data;
-        setAuth(user, token);
-        form.reset();
-        navigate("/dashboard");
-        setError(null);
-      }
-    },
-    onError: (err) => {
-      console.log("error", errorExtractMessage(err));
-      setError(errorExtractMessage(err));
-    },
-  });
-
-  const onsubmit: SubmitHandler<login> = (data) => {
-    loginMutation.mutate(data);
-  };
-
+    try {
+      await login(email, password)
+      navigate("/dashboard")
+    } catch (err) {
+      setError("Invalid credentials. Please try again.")
+    } finally {
+      setLoading(false)
+    }
+  }
 
   return (
-    <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
-      <Card className="w-full max-w-sm">
+    <div className="min-h-screen bg-gradient-to-br from-red-50 to-orange-50 flex items-center justify-center p-4">
+      <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <div className="flex items-center justify-center mb-4">
             <Shield className="h-12 w-12 text-red-600" />
@@ -92,70 +45,69 @@ const Login = () => {
           <CardDescription>Secure access to humanitarian data platform</CardDescription>
         </CardHeader>
         <CardContent>
-          {error && (
-            <p className="bg-red-100 text-center rounded p-2 ">{error}</p>
-          )}
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onsubmit)} className="space-y-8">
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <Input placeholder="example @gmail.com" {...field} />
-                    </FormControl>
-
-                    <FormMessage />
-                  </FormItem>
-                )}
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                placeholder="Enter your email"
               />
-              <FormField
-                control={form.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Password</FormLabel>
-                    <FormControl>
-                      <Input
-                        type="password"
-                        placeholder="*********"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+            </div>
 
-              <Button
-                className={"w-full"}
-                type="submit"
-                disabled={loginMutation.isPending}
-              >
-                {loginMutation.isPending ? "Login..." : "Login"}
-              </Button>
-            </form>
-            <div className="mt-6 text-center text-sm text-gray-600">
-              <p>Demo Credentials:</p>
-              <div className="mt-2 space-y-1 text-xs">
-                <p>
-                  <strong>Admin:</strong> admin@safeaid.org / admin123
-                </p>
-                <p>
-                  <strong>Field Agent:</strong> agent@safeaid.org / agent123
-                </p>
-                <p>
-                  <strong>Medical:</strong> medical@safeaid.org / medical123
-                </p>
+            <div className="space-y-2">
+              <Label htmlFor="password">Password</Label>
+              <div className="relative">
+                <Input
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  placeholder="Enter your password"
+                />
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                </Button>
               </div>
             </div>
-          </Form>
+
+            {error && (
+              <Alert variant="destructive">
+                <AlertDescription>{error}</AlertDescription>
+              </Alert>
+            )}
+
+            <Button type="submit" className="w-full bg-red-600 hover:bg-red-700" disabled={loading}>
+              {loading ? "Signing in..." : "Sign In"}
+            </Button>
+          </form>
+
+          <div className="mt-6 text-center text-sm text-gray-600">
+            <p>Demo Credentials:</p>
+            <div className="mt-2 space-y-1 text-xs">
+              <p>
+                <strong>Admin:</strong> admin@safeaid.org / admin123
+              </p>
+              <p>
+                <strong>Field Agent:</strong> agent@safeaid.org / agent123
+              </p>
+              <p>
+                <strong>Medical:</strong> medical@safeaid.org / medical123
+              </p>
+            </div>
+          </div>
         </CardContent>
       </Card>
     </div>
-  );
-};
-
-export default Login;
+  )
+}

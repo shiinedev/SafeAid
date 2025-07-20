@@ -6,11 +6,14 @@ import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { Users, Search, UserPlus, Eye, Edit, Shield, Calendar, MapPin, Trash2 } from "lucide-react"
 import { Link, useNavigate } from "react-router"
-import { Role, useAuthStore } from "@/lib/store/authStore"
+import { useQuery } from "@tanstack/react-query"
+import api from "@/lib/apiClient"
+import { Role, useAuth } from "@/hooks/useAuth"
+
 
 
 export default function BeneficiariesPage() {
-  const { user } = useAuthStore()
+  const { user } = useAuth()
   const { beneficiaries, deleteBeneficiary } = useBeneficiaries()
   const [searchTerm, setSearchTerm] = useState("")
   const navigate = useNavigate()
@@ -41,7 +44,9 @@ export default function BeneficiariesPage() {
     )
   }
 
-  const filteredBeneficiaries = beneficiaries.filter(
+ 
+
+  const filteredBeneficiaries = beneficiaries?.filter(
     (beneficiary) =>
       beneficiary.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       beneficiary.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -60,7 +65,7 @@ export default function BeneficiariesPage() {
                 <p className="text-gray-600">Manage and view beneficiary information</p>
               </div>
             </div>
-            {/* <div className=" hidden sm:flex items-center space-x-2">
+            <div className=" hidden sm:flex items-center space-x-2">
               {(user.role === Role.Admin || user.role === Role.Field_agent) && (
                 <Button asChild className="bg-blue-600 hover:bg-blue-700">
                   <Link to="/beneficiaries/new">
@@ -72,7 +77,7 @@ export default function BeneficiariesPage() {
               <Button variant="outline" asChild>
                 <Link to="/dashboard">Dashboard</Link>
               </Button>
-            </div> */}
+            </div>
           </div>
         </div>
       </div>

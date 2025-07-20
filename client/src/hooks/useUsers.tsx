@@ -3,6 +3,7 @@ import { createContext, useContext, useState, useEffect, type ReactNode } from "
 import { encryptData, decryptData } from "@/lib/encryption"
 
 
+
 interface User {
   id: string
   email: string

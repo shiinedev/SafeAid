@@ -4,12 +4,13 @@ import { Button } from "@/components/ui/button"
 import { User, ArrowLeft, Calendar, Edit, Phone, MapPin, AlertTriangle, FileText, UserCheck } from "lucide-react"
 import { useBeneficiaries } from "@/hooks/useBeneficiaries"
 import { useEffect } from "react"
-import { Role, useAuthStore } from "@/lib/store/authStore"
+
+import { Role, useAuth } from "@/hooks/useAuth"
 
 
 export default function BeneficiaryDetailsPage() {
   const { id } = useParams()
-  const { user } = useAuthStore()
+  const { user } = useAuth()
   const { getBeneficiary, loading: beneficiariesLoading } = useBeneficiaries()
   const navigate = useNavigate()
 
@@ -101,7 +102,7 @@ export default function BeneficiaryDetailsPage() {
             <CardContent>
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-4">
-                  <div className="flex items-center space-x-3">
+                  <div className="flex flex-col items-center space-x-3">
                     <User className="h-5 w-5 text-gray-500" />
                     <div>
                       <p className="text-sm font-medium text-gray-900">Full Name</p>

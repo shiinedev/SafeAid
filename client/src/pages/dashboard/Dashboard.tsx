@@ -7,11 +7,12 @@ import {Link} from "react-router"
 import { useNavigate } from "react-router"
 import { useBeneficiaries } from "@/hooks/useBeneficiaries"
 import { useOfflineStatus } from "@/hooks/useOfflineStatus"
-import { Role, useAuthStore } from "@/lib/store/authStore"
+import { Role, useAuth } from "@/hooks/useAuth"
+
 
 
 const  Dashboard = () =>{
-  const { user, clearAuth } = useAuthStore()
+  const { user, logout } = useAuth()
   const { beneficiaries } = useBeneficiaries()
   const isOffline = useOfflineStatus()
   const navigate = useNavigate()
@@ -122,7 +123,7 @@ const  Dashboard = () =>{
                   Settings
                 </Link>
               </Button>
-              <Button  onClick={clearAuth}>
+              <Button  onClick={logout}>
                 Logout
               </Button>
             </div>
