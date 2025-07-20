@@ -22,6 +22,7 @@ createRoot(document.getElementById('root')!).render(
           <BeneficiariesProvider>
             <TrainingProvider>
               <RouterProvider router={router} />
+              <App />
             </TrainingProvider>
           </BeneficiariesProvider>
         </AuthProvider>
