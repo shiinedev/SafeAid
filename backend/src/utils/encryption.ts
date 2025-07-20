@@ -1,19 +1,4 @@
 // --- src/utils/encryption.ts ---
-// import crypto from 'crypto';
-
-// const key = crypto.scryptSync(process.env.JWT_SECRET!, 'salt', 32);
-// const iv = Buffer.alloc(16, 0);
-
-// export const encrypt = (text: string): string => {
-//   const cipher = crypto.createCipheriv('aes-256-cbc', key, iv);
-//   return Buffer.concat([cipher.update(text, 'utf8'), cipher.final()]).toString('hex');
-// };
-
-// export const decrypt = (encrypted: string): string => {
-//   const decipher = crypto.createDecipheriv('aes-256-cbc', key, iv);
-//   return Buffer.concat([decipher.update(Buffer.from(encrypted, 'hex')), decipher.final()]).toString('utf8');
-// };
-
 import crypto from 'crypto';
 import dotenv from 'dotenv';
 
