@@ -1,5 +1,3 @@
-// SafeAid Backend – Full Implementation (Node.js + Express + TypeScript)
-
 // --- src/index.ts ---
 import express from 'express';
 import mongoose from 'mongoose';
@@ -7,6 +5,7 @@ import dotenv from 'dotenv';
 import authRoutes from './routes/authRoutes';
 import beneficiaryRoutes from './routes/beneficiaryRoutes';
 import trainingRoutes from './routes/trainingRoutes';
+import userRoutes from './routes/userRoutes';
 import { errorHandler } from './middlewares/errorHandler';
 import cors from 'cors';
 import { notFound } from './middlewares/notFound';
@@ -21,6 +20,7 @@ applySecurityMiddleware(app);
 app.use('/api/auth', authRoutes);
 app.use('/api/beneficiaries', beneficiaryRoutes);
 app.use('/api/training', trainingRoutes);
+app.use('/api/users', userRoutes);
 
 app.use(notFound);
 app.use(errorHandler);

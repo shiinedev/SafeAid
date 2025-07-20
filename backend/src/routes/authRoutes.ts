@@ -10,7 +10,8 @@ import { loginRateLimiter } from '../middlewares/security';
 const router = express.Router();
 
 
-router.post('/register',verifyToken,validateSchema(userSchemaValidation),checkRole("admin"), registerUser);
-router.post('/login', loginRateLimiter,loginUser);
+router.post('/register', verifyToken, validateSchema(userSchemaValidation),checkRole("admin"), registerUser);
+router.post('/login', loginRateLimiter, loginUser);
+
 
 export default router;
