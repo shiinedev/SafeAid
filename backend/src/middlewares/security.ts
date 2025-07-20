@@ -22,3 +22,14 @@ export function applySecurityMiddleware(app: Express) {
 
   app.use(limiter);
 }
+
+export const loginRateLimiter = rateLimit({
+  windowMs: 5 * 60 * 1000, // 5 minutes
+  max: 3, // 3 attempts
+  message: {
+    status: 429,
+    error: 'Too many login attempts. Please try again after 5 minutes.'
+  },
+  standardHeaders: true,
+  legacyHeaders: false
+});
