@@ -1,1 +1,1 @@
-SafeAid
+SafeAid frontend. See project README for more info.

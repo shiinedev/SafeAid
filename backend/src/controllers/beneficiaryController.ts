@@ -8,6 +8,7 @@ export const createBeneficiary = async (
   res: Response,
   next: NextFunction
 ) => {
+  console.log('Creating beneficiary:', req.body);
   const { name, age, location, emergencyContact, medicalInfo, notes } =
     req.body;
   try {
@@ -25,6 +26,8 @@ export const createBeneficiary = async (
       createdBy,
     });
     res.status(201).json(beneficiary);
+    console.log('Beneficiary created:', beneficiary);
+    console.log('response:', res.status(201).json(beneficiary));
   } catch (error) {
     next(error);
   }

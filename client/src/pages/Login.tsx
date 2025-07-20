@@ -1,4 +1,3 @@
-
 import type React from "react"
 import { useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -42,7 +41,7 @@ export default function LoginPage() {
             <Shield className="h-12 w-12 text-red-600" />
           </div>
           <CardTitle className="text-2xl">SafeAid Login</CardTitle>
-          <CardDescription>Secure access to humanitarian data platform</CardDescription>
+          <CardDescription>Safe data. Safe aid. Safe lives.</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -55,6 +54,7 @@ export default function LoginPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 placeholder="Enter your email"
+
               />
             </div>
 

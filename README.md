@@ -1,12 +1,12 @@
 # SafeAid
 
-A secure web application for NGOs to collect, store, and share sensitive beneficiary data, prioritizing privacy, data protection, and misuse prevention—even under conditions of surveillance or server compromise.
+A secure web application for NGOs to collect, store, and share sensitive beneficiary data, prioritising privacy, data protection, and misuse prevention—even under conditions of surveillance or server compromise.
 
 ## Features
 - Modern React frontend (Vite, TypeScript, TailwindCSS)
-- Planned Express + MongoDB backend for secure API and data storage
+- Express + MongoDB backend for secure API and data storage
 - Client-side encryption for sensitive data
-- JWT-based authentication (planned)
+- JWT-based authentication
 - Role-based access control (planned)
 - Audit logging and secure data sharing (planned)
 
@@ -31,21 +31,18 @@ A secure web application for NGOs to collect, store, and share sensitive benefic
    ```
 3. Open [http://localhost:5173](http://localhost:5173) in your browser.
 
-### Backend Setup (Planned)
-- The backend will be implemented in Express (Node.js) with MongoDB for secure data storage and API endpoints.
-- Backend code will reside in a `/backend` directory or a separate repository.
 
 ## Project Structure
 ```
 SafeAid/
-  frontend/      # React app (current)
-  backend/       # Express + MongoDB API (planned)
+  frontend/      # React app
+  backend/       # Express + MongoDB API
 ```
 
 ## Security Principles
 - **End-to-end encryption**: Sensitive data is encrypted in the browser before being sent to the server.
 - **Zero trust**: Server stores only encrypted data; compromise does not expose plaintext.
-- **Role-based access**: Only authorized users can access or share data (planned).
+- **Role-based access**: Only authorised users can access or share data (planned).
 - **Audit logging**: All access and sharing actions are logged (planned).
 
 ## Contact

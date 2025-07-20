@@ -1,5 +1,4 @@
-
-import { Shield, Users, Heart, BookOpen } from "lucide-react"
+import { Shield, Database, Heart, BookOpen } from "lucide-react"
 import { Card ,CardDescription, CardHeader, CardTitle} from "../components/ui/card"
 import { Button } from "../components/ui/button"
 import { Link } from "react-router"
@@ -14,7 +13,7 @@ import { Link } from "react-router"
             <h1 className="text-5xl font-bold text-gray-900">SafeAid</h1>
           </div>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Secure, offline-first aid data management platform for humanitarian organizations operating in challenging
+            Secure aid data management platform for humanitarian organisations operating in challenging
             environments. Protect beneficiaries and field teams with encrypted, role-based data collection.
           </p>
         </div>
@@ -33,11 +32,10 @@ import { Link } from "react-router"
 
           <Card className="border-orange-200 hover:shadow-lg transition-shadow">
             <CardHeader>
-              <Users className="h-12 w-12 text-orange-600 mb-4" />
-              <CardTitle>Offline-First</CardTitle>
+              <Database className="h-12 w-12 text-orange-600 mb-4" />
+              <CardTitle>Resilient Data Storage</CardTitle>
               <CardDescription>
-                Works entirely offline with local data storage. Optional sync when network conditions are safe and
-                secure.
+                Physical servers or paper records can be destroyed at anytime. Cloud-sync ensures data is always accessible.
               </CardDescription>
             </CardHeader>
           </Card>
@@ -47,8 +45,7 @@ import { Link } from "react-router"
               <Heart className="h-12 w-12 text-red-600 mb-4" />
               <CardTitle>Humanitarian Focus</CardTitle>
               <CardDescription>
-                Built specifically for NGOs and humanitarian organizations working in surveillance-heavy or
-                connectivity-denied zones.
+                Built specifically for NGOs and humanitarian organisations working in surveillance-heavy zones.
               </CardDescription>
             </CardHeader>
           </Card>
@@ -71,11 +68,10 @@ import { Link } from "react-router"
 
           <div className="text-sm text-gray-500 max-w-2xl mx-auto">
             <p className="mb-2">
-              <strong>Supported Roles:</strong> Admin, Field Agent, Medical Staff, Trainer
+              <strong>Supported Roles:</strong> Admin, Field Agent, Medical Staff
             </p>
             <p>
-              This platform operates offline-first to ensure data security and accessibility in challenging field
-              conditions.
+            This platform currently operates online-only for secure and reliable data access. Offline mode is coming soon!
             </p>
           </div>
         </div>

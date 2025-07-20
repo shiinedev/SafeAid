@@ -76,7 +76,7 @@ export default function Training() {
               <BookOpen className="h-8 w-8  text-purple-600" />
               <div>
                 <h1 className="text-2xl  font-bold text-gray-900">Training Center</h1>
-                <p className="text-gray-600 sm:block hidden">Access offline training resources and materials</p>
+                <p className="text-gray-600 sm:block hidden">Access essential training resources and materials</p>
               </div>
             </div>
             <div className="hidden sm:flex items-center space-x-2">
@@ -181,7 +181,7 @@ export default function Training() {
                       <Clock className="h-4 w-4 mr-1" />
                       {module.duration}
                     </div>
-                    <div className="text-sm text-gray-600">Available offline</div>
+                    <div className="text-sm text-gray-600">Available online</div>
                   </div>
 
                   <div className="flex space-x-2">
@@ -226,12 +226,12 @@ export default function Training() {
             <CardHeader>
               <CardTitle className="text-green-800 flex items-center">
                 <Shield className="h-5 w-5 mr-2" />
-                Offline Access
+                Online Access
               </CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-green-700 text-sm">
-                All training materials are stored locally and accessible without internet connection.
+                All training materials are stored online and accessible with an internet connection.
               </p>
             </CardContent>
           </Card>
@@ -259,7 +259,7 @@ export default function Training() {
             </CardHeader>
             <CardContent>
               <p className="text-purple-700 text-sm">
-                Training modules are encrypted and stored locally for security and offline access.
+                Training modules are encrypted and stored online for security and online access.
               </p>
             </CardContent>
           </Card>
