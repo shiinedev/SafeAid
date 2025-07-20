@@ -61,7 +61,7 @@ const Login = () => {
       return response.data;
     },
     onSuccess: (data) => {
-      console.log("user Login successfully", data);
+      console.log("User login successful", data);
       if (data.token) {
         const { token, user } = data;
         setAuth(user, token);
@@ -89,7 +89,7 @@ const Login = () => {
             <Shield className="h-12 w-12 text-red-600" />
           </div>
           <CardTitle className="text-2xl">SafeAid Login</CardTitle>
-          <CardDescription>Secure access to humanitarian data platform</CardDescription>
+          <CardDescription>Safe data. Safe aid. Safe lives.</CardDescription>
         </CardHeader>
         <CardContent>
           {error && (
@@ -104,7 +104,7 @@ const Login = () => {
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input placeholder="example @gmail.com" {...field} />
+                      <Input placeholder="example@safeaid.org" {...field} />
                     </FormControl>
 
                     <FormMessage />
