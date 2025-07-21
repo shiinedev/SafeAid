@@ -1,49 +1,76 @@
-# SafeAid
+# 🛡️ SafeAid — Offline-First, Client-Only NGO Data Manager
 
-A secure web application for NGOs to collect, store, and share sensitive beneficiary data, prioritising privacy, data protection, and misuse prevention—even under conditions of surveillance or server compromise.
+SafeAid is a **secure, offline-capable, client-only** React application designed for NGOs to collect, store, and manage sensitive beneficiary data **without any backend infrastructure**. Built with privacy in mind, it uses modern encryption (Web Crypto API), localStorage, and a smooth UX with Tailwind and shadcn/ui components.
 
-## Features
-- Modern React frontend (Vite, TypeScript, TailwindCSS)
-- Express + MongoDB backend for secure API and data storage
-- Client-side encryption for sensitive data
-- JWT-based authentication
-- Role-based access control (planned)
-- Audit logging and secure data sharing (planned)
+---
 
-## Getting Started
+## 🚀 Project Goals
 
-### Prerequisites
-- Node.js (v18+ recommended)
-- npm or yarn
+- Help NGOs operate in areas with **low connectivity or hostile environments**
+- Enable **safe, encrypted** collection and viewing of **beneficiary records**
+- Ensure **zero backend dependency** to protect from server compromise
+- Provide **great UX** even for non-technical field workers
 
-### Frontend Setup
-1. Install dependencies:
-   ```bash
-   npm install
-   # or
-   yarn install
-   ```
-2. Start the development server:
-   ```bash
-   npm run dev
-   # or
-   yarn dev
-   ```
-3. Open [http://localhost:5173](http://localhost:5173) in your browser.
+---
 
+## 🧠 Key Features
 
-## Project Structure
+| Feature                     | Description                                                                 |
+|----------------------------|-----------------------------------------------------------------------------|
+| 🔐 **Offline Authentication**   |login stored locally                             |
+| 👥 **Beneficiary Management**  | Add, edit, delete and search sensitive records                  |
+| 🔒 **AES Encryption**         | Encrypt all beneficiary data before storing in `localStorage`           |`localStorage`           |
+| 📦 **Client-only Data**       | No API or external server used                                           |
+| 🧠 **Form Validation**        | Built using React Hook Form + Zod                                        |
+|                |
+| 🧭 **Offline Awareness**      | Detect online/offline status in real-time                               |
+| 📱 **Mobile Friendly**        | Fully responsive and accessible UI                                      |
+
+---
+
+## 🧰 Tech Stack
+
+- **React + Vite**
+- **Tailwind CSS**
+- **shadcn/ui**
+- **React Hook Form + Zod** (form validation)
+- **React Query** (for simulated client-only fetches)
+- **Web Crypto API** (AES-GCM for encryption)
+- **localStorage** (persistence)
+
+---
+
+---
+
+## 🧪 How to Run
+
+```bash
+# 1. Clone the repo
+git clone https://github.com/shiinedev/SafeAid.git
+
+cd safeaid
+
+# 2. change directory
+cd client
+
+# 3.  Install dependencies
+npm install
+
+# 4. Run the app
+npm run dev
+
 ```
-SafeAid/
-  frontend/      # React app
-  backend/       # Express + MongoDB API
-```
 
-## Security Principles
-- **End-to-end encryption**: Sensitive data is encrypted in the browser before being sent to the server.
-- **Zero trust**: Server stores only encrypted data; compromise does not expose plaintext.
-- **Role-based access**: Only authorised users can access or share data (planned).
-- **Audit logging**: All access and sharing actions are logged (planned).
+### 📌 TODO (Optional Improvements)
+ 
+ - Export encrypted data (for backup/import)
 
-## Contact
-For questions or support, please open an issue or contact the maintainers. 
+ - Role-based access (read-only, admin)
+
+ - Biometric or PIN login (for devices in the field)
+
+ - Support for PWA / device install
+  
+
+  ## 📄 License
+MIT — free to use, modify, and distribute. Contributions welcome!
