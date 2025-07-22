@@ -132,11 +132,11 @@ export default function Home() {
           <div className="text-center">
             <div className="flex items-center justify-center space-x-2 mb-4">
               <Shield className="h-6 w-6" />
-              <span className="text-xl font-bold">SecureAid</span>
+              <span className="text-xl font-bold">SafeAid</span>
             </div>
-            <p className="text-gray-400 mb-4">Secure beneficiary data management for humanitarian organizations.</p>
+            <p className="text-gray-400 mb-4">Safe beneficiary data management for humanitarian organizations.</p>
             <p className="text-gray-500 text-sm">
-              &copy; 2025 SecureAid. All rights reserved. No data leaves your device.
+              &copy; 2025 SafeAid. All rights reserved. No data leaves your device.
             </p>
           </div>
         </div>
