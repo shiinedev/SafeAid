@@ -82,7 +82,7 @@ export default function BeneficiariesPage() {
 
       <div className="max-w-4xl  mx-auto px-4 space-y-4 py-6">
 
-        <div className="flex justify-between items-center space-x-2">
+        <div className="sm:hidden flex justify-between items-center space-x-2">
           {(user.role === Role.Admin || user.role === Role.Field_agent) && (
             <Button asChild className="bg-blue-600 hover:bg-blue-700">
               <Link to="/beneficiaries/new">
@@ -133,7 +133,7 @@ export default function BeneficiariesPage() {
               <Card key={beneficiary.id} className="hover:shadow-md transition-shadow">
                 <CardHeader>
 
-                  <CardTitle className="flex flex-row items-center justify-between">
+                  <CardTitle className="flex flex-col space-y-2  sm:flex-row sm:items-center justify-between">
                     <span className="truncate">{beneficiary.name}</span>
                     <Badge variant="outline">
                       ID: {beneficiary.id}

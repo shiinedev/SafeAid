@@ -166,27 +166,33 @@ export default function AddUsersForm() {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="bg-white shadow-sm border-b">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center space-x-4">
-            <Button variant="outline" size="sm" asChild>
-              <Link to="/users">
-                <ArrowLeft className="h-4 w-4 mr-2" />
-                Back
-              </Link>
-            </Button>
+        <div className="max-w-2xl mx-auto px-4 py-4">
+
             <div className="flex items-center space-x-4">
               <UserPlus className="h-8 w-8 text-blue-600" />
               <div>
                 <h1 className="text-2xl font-bold text-gray-900">Create New User</h1>
                 <p className="text-gray-600">Add a new user to the SafeAid platform</p>
               </div>
-            </div>
+
           </div>
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-8">
-        <div className="max-w-2xl mx-auto">
+   
+         <div className="container mx-auto px-4 py-8">
+        <div className="max-w-2xl mx-auto space-y-6">
+           <div className="flex items-center justify-between ">
+             <Button  size="sm" asChild>
+              <Link to="/users">
+                <ArrowLeft className="h-4 w-4 mr-2" />
+                Back
+              </Link>
+            </Button>
+              <Button variant="outline" asChild>
+                <Link to="/dashboard">Dashboard</Link>
+              </Button>
+            </div>
           <Alert className="mb-6 border-blue-200 bg-blue-50">
             <Shield className="h-4 w-4" />
             <AlertDescription>
@@ -383,5 +389,6 @@ export default function AddUsersForm() {
         </div>
       </div>
     </div>
+  
   )
 }
